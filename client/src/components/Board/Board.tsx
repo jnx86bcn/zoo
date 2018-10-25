@@ -78,7 +78,7 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
         return (
                 <div>
-                   { this.showItems() }    
+                   { /*this.showItems()*/ }    
                 </div>
         )
     }

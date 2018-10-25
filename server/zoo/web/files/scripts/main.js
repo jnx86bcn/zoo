@@ -13740,7 +13740,7 @@ class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, arrayItem));
     }
     render() {
-        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.showItems()));
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null));
     }
 }
 //Add ContextTypes
