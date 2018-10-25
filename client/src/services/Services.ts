@@ -5,7 +5,7 @@ export class Services {
 
         return new Promise<any>((resolve,reject)=>{
 
-            let url = "http://zoosvc.com/service.svc/getItems";
+            let url = "http://zoosvc.com/service.svc/GetAllItems";
 
             fetch(url,
                 {
@@ -17,7 +17,7 @@ export class Services {
                     }
 
                 }).then(Response => Response.json()).then((data: any) => {
-                    resolve(data.GetItemsResult);
+                    resolve(data.GetAllItemsResult);
                 }).catch(err => {
                     reject(err);
                 });

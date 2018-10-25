@@ -14,9 +14,9 @@ import { setErrorMessage, setSuccessMessage, setInProcess } from './successActio
 const getItems_Request = (): Action => ({
     type: ActionTypes.GET_ITEMS_REQUEST
 });
-const getItems_Success = (news: Array<AnimalModel>): Action => ({
+const getItems_Success = (animals: Array<AnimalModel>): Action => ({
     type: ActionTypes.GET_ITEMS_SUCCESS,
-    payload: news
+    payload: animals
 });
 const getItems_Error = (error: Error): Action => ({
     type: ActionTypes.GET_ITEMS_ERROR,

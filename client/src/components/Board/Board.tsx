@@ -33,7 +33,7 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 		t: PropTypes.func.isRequired
 	}
 
-    
+
     constructor(props) {
 
         super(props);
@@ -62,7 +62,7 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
 
     public componentDidMount() {
-
+        this.props.GetAllItems_LS();
     }
 
 

@@ -13729,6 +13729,9 @@ class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
             this.setState({ allItems: prevProps.allItems_LS });
         }
     }
+    componentDidMount() {
+        this.props.GetAllItems_LS();
+    }
     showItems() {
         let arrayAuxItem = [];
         for (var i = 0; i < 10; i++) {
@@ -14148,9 +14151,9 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 const getItems_Request = () => ({
     type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].GET_ITEMS_REQUEST
 });
-const getItems_Success = (news) => ({
+const getItems_Success = (animals) => ({
     type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].GET_ITEMS_SUCCESS,
-    payload: news
+    payload: animals
 });
 const getItems_Error = (error) => ({
     type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].GET_ITEMS_ERROR,
@@ -14496,7 +14499,7 @@ __webpack_require__.r(__webpack_exports__);
 class Services {
     getAllItems() {
         return new Promise((resolve, reject) => {
-            let url = "http://zoosvc.com/service.svc/getItems";
+            let url = "http://zoosvc.com/service.svc/GetAllItems";
             fetch(url, {
                 method: 'GET',
                 headers: {
@@ -14504,7 +14507,7 @@ class Services {
                     'Content-type': 'application/json',
                 }
             }).then(Response => Response.json()).then((data) => {
-                resolve(data.GetItemsResult);
+                resolve(data.GetAllItemsResult);
             }).catch(err => {
                 reject(err);
             });
