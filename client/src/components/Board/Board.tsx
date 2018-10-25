@@ -33,6 +33,7 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 		t: PropTypes.func.isRequired
 	}
 
+    
     constructor(props) {
 
         super(props);
@@ -43,6 +44,7 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
     };    
 
+
     public static getDerivedStateFromProps(nextProps: IBoardProps & IConnectedState, prevState: IBoardState) {
  
         if (nextProps.allItems_LS != prevState.allItems) {
@@ -50,11 +52,17 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         }
     }
          
+
     public componentDidUpdate(prevProps: IBoardProps & IConnectedState, prevState:IBoardState) {
          
         if (prevProps.allItems_LS != prevState.allItems) {
             this.setState({allItems: prevProps.allItems_LS})
         }
+    }
+
+
+    public componentDidMount() {
+
     }
 
 
