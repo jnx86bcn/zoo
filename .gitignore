@@ -262,3 +262,5 @@ paket-files/
 __pycache__/
 *.pyc
 server/.vs/zoo/v15/.suo
+server/zoo/web/files/scripts/main.map
+server/zoo/web/files/scripts/main.js
