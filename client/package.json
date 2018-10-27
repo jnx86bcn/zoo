@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:dev": "webpack --config webpack.config.js --progress --profile --bail --mode development",
-    "build:watch": "npm version prerelease && webpack --config webpack.config.js --progress --profile --bail --mode development",
-    "build:pro": "npm version minor && webpack --config webpack.config.pro.js --progress --profile --bail --mode production"
+    "build:watch": "webpack --config webpack.config.js --progress --profile --bail --mode development",
+    "build:pro": "webpack --config webpack.config.pro.js --progress --profile --bail --mode production"
   },
   "author": "",
   "license": "ISC",
