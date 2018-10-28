@@ -16,8 +16,6 @@ class Item extends React.Component<IItemProps, IItemState> {
     constructor(props) {
 
         super(props);        
-        
-        
 
     };    
 

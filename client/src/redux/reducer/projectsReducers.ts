@@ -14,6 +14,12 @@ export const projectsReducer: Reducer<GeneralState> = (state: GeneralState = ini
             return state.getAllItems(action.payload);
         case ActionTypes.GET_ITEMS_ERROR:
             return state;
+        case ActionTypes.ADD_ITEM_REQUEST:
+            return state;
+        case ActionTypes.ADD_ITEM_SUCCESS:
+            return state.addItem(action.payload);
+        case ActionTypes.ADD_ITEM_ERROR:
+            return state;
         default: 
             return state;
     };
