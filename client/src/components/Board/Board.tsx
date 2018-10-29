@@ -3,19 +3,22 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { IBoardProps,IBoardState } from '.';
 import { AnimalModel } from '../../models';
-import { getAllItems } from '../../redux/actions';
+import { getAllItems, addItem } from '../../redux/actions';
 
 interface IConnectedDispatch {
-	GetAllItems_LS: () => void;
+    GetAllItems_LS: () => void;
+    AddItem_LS: (item: AnimalModel) => void;
 }
 
 interface IConnectedState {
-	allItems_LS: Array<AnimalModel>;
+    allItems_LS: Array<AnimalModel>;
+    AddItem_LS: AnimalModel;
 }
 
 function mapStateToProps(state: any, ownProps: IBoardProps): IConnectedState {
 	return {
-		allItems_LS: state.projectsReducer.items,
+        allItems_LS: state.projectsReducer.items,
+        AddItem_LS: state.projectsReducer.item,
 	};
 }
 
@@ -23,6 +26,9 @@ function mapStateToProps(state: any, ownProps: IBoardProps): IConnectedState {
 const mapDispatchToProps = (dispatch: any): IConnectedDispatch => ({
 	GetAllItems_LS: () => {
 		dispatch(getAllItems());
+    },
+    AddItem_LS: (item: AnimalModel) => {
+		dispatch(addItem(item));
 	}
 });
 
@@ -81,12 +87,19 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         return (<div>{arrayItem}</div>)
     }
 
+    private addNewAnimal() {
+        let animal = new AnimalModel();
+        console.log(animal);
+        this.props.AddItem_LS(animal);
+    }
+
 
     public render() {
 
         return (
                 <div>
-                   { /*this.showItems()*/ }    
+                   { /*this.showItems()*/ }
+                   <button onClick={()=>this.addNewAnimal()}>add animal</button>
                 </div>
         )
     }
