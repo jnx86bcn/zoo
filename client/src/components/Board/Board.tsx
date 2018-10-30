@@ -87,9 +87,9 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         return (<div>{arrayItem}</div>)
     }
 
-    private addNewAnimal() {
+
+    private AddItem() {
         let animal = new AnimalModel();
-        console.log(animal);
         this.props.AddItem_LS(animal);
     }
 
@@ -98,8 +98,7 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
         return (
                 <div>
-                   { /*this.showItems()*/ }
-                   <button onClick={()=>this.addNewAnimal()}>add animal</button>
+                    <button onClick={()=>this.AddItem()}>new animal</button>
                 </div>
         )
     }

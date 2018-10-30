@@ -8426,14 +8426,13 @@ class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
         });
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, arrayItem));
     }
-    addNewAnimal() {
+    AddItem() {
         let animal = new _models__WEBPACK_IMPORTED_MODULE_3__["AnimalModel"]();
-        console.log(animal);
         this.props.AddItem_LS(animal);
     }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: () => this.addNewAnimal() }, "add animal")));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: () => this.AddItem() }, "new animal")));
     }
 }
 //Add ContextTypes
@@ -8724,10 +8723,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimalModel", function() { return AnimalModel; });
 class AnimalModel {
     constructor() {
-        this.Name = 'Elephant';
-        this.Kingdom = 'Animalia';
-        this.Extinct = true;
-        this.Region = 'Africa';
+        this.Name = "name";
+        this.Kingdom = "Kingdom";
+        this.Class = "Class";
+        this.ConservationStatus = "ConservationStatus";
+        this.Region = "Region";
+        this.Extinct = false;
+        this.Birth = new Date();
+        this.Death = new Date();
     }
 }
 
@@ -8857,9 +8860,15 @@ function getAllItems() {
         dispatch(getItems_Request());
         _services__WEBPACK_IMPORTED_MODULE_1__["Services"].getAllItems()
             .then((data) => {
+            data.forEach(item => {
+                item.Birth = new Date(item.Birth.match(/\d+/)[0] * 1);
+                item.Death = new Date(item.Death.match(/\d+/)[0] * 1);
+            });
+            dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setSuccessMessage"])(""));
             dispatch(getItems_Success(data));
         }).catch((err) => {
+            dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setErrorMessage"])(""));
             dispatch(getItems_Error(err));
         });
@@ -8883,9 +8892,12 @@ function addItem(item) {
         dispatch(addItem_Request());
         _services__WEBPACK_IMPORTED_MODULE_1__["Services"].addItem(item)
             .then((data) => {
+            dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setSuccessMessage"])(""));
             dispatch(addItem_Success(data));
+            dispatch(getAllItems());
         }).catch((err) => {
+            dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setErrorMessage"])(""));
             dispatch(addItem_Error(err));
         });
@@ -9235,13 +9247,12 @@ class Services {
         });
     } //getItems
     static addItem(item) {
-        let json = JSON.stringify({ item });
         return new Promise((resolve, reject) => {
             let url = "http://zoosvc.com/service.svc/AddItem";
             fetch(url, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json; odata=verbose', 'Content-type': 'application/json' },
-                body: JSON.stringify("{" + json.split("{")[2].split("}")[0] + "}")
+                body: JSON.stringify({ json: JSON.stringify(item) })
             }).then(Response => Response.json()).then((data) => {
                 resolve(data);
             }).catch(err => {

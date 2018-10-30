@@ -12,12 +12,15 @@ export class AnimalModel {
     Birth: IFormFieldString;
     Death: IFormFieldString;
 
-    constructor() 
-    {
-        this.Name = 'Elephant';
-        this.Kingdom = 'Animalia';
-        this.Extinct = true;
-        this.Region = 'Africa';
+    constructor() {
+        this.Name = "name";
+        this.Kingdom = "Kingdom";
+        this.Class = "Class";
+        this.ConservationStatus = "ConservationStatus";
+        this.Region = "Region";
+        this.Extinct = false;
+        this.Birth = new Date();
+        this.Death = new Date();
     }
 
 }

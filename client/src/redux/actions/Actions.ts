@@ -38,9 +38,15 @@ export function getAllItems() {
 
         Services.getAllItems()
         .then((data: Array<AnimalModel>)=>{
+            data.forEach(item=>{
+                item.Birth = new Date(item.Birth.match(/\d+/)[0] * 1);
+                item.Death = new Date(item.Death.match(/\d+/)[0] * 1);
+            })
+            dispatch(setInProcess(false));
             dispatch(setSuccessMessage(""));
             dispatch(getItems_Success(data));
         }).catch((err)=>{
+            dispatch(setInProcess(false));
             dispatch(setErrorMessage(""));
             dispatch(getItems_Error(err));
         });
@@ -72,9 +78,12 @@ export function addItem(item: AnimalModel) {
 
         Services.addItem(item)
         .then((data: AnimalModel)=>{
+            dispatch(setInProcess(false));
             dispatch(setSuccessMessage(""));
             dispatch(addItem_Success(data));
+            dispatch(getAllItems());
         }).catch((err)=>{
+            dispatch(setInProcess(false));
             dispatch(setErrorMessage(""));
             dispatch(addItem_Error(err));
         });
