@@ -7,7 +7,7 @@ import { IItemProps,IItemState } from '.';
 import { Services } from '../../services/Services';
 
 
-class Item extends React.Component<IItemProps, IItemState> {
+export class Item extends React.Component<IItemProps, IItemState> {
 
     static contextTypes = {
         t: PropTypes.func.isRequired
@@ -23,7 +23,11 @@ class Item extends React.Component<IItemProps, IItemState> {
 
         return (
                 <div>
-                   
+                   <label>{this.props.Item.Name}</label>
+                   <label>{this.props.Item.Kingdom}</label>
+                   <label>{this.props.Item.ConservationStatus}</label>
+                   <label>{this.props.Item.Class}</label>
+                   <label>{this.props.Item.Region}</label>
                 </div>
         )
     }

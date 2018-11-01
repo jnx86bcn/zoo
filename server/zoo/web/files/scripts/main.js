@@ -8371,10 +8371,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../models */ "./src/models/index.ts");
-/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux/actions */ "./src/redux/actions/index.ts");
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/actions */ "./src/redux/actions/index.ts");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../models */ "./src/models/index.ts");
+/* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Item/Item */ "./src/components/Item/Item.tsx");
+
 
 
 
@@ -8389,10 +8391,10 @@ function mapStateToProps(state, ownProps) {
 //Map the actions to the properties of the Component.
 const mapDispatchToProps = (dispatch) => ({
     GetAllItems_LS: () => {
-        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["getAllItems"])());
+        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["getAllItems"])());
     },
     AddItem_LS: (item) => {
-        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_4__["addItem"])(item));
+        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["addItem"])(item));
     }
 });
 class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
@@ -8417,29 +8419,82 @@ class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
         this.props.GetAllItems_LS();
     }
     showItems() {
-        let arrayAuxItem = [];
-        for (var i = 0; i < 10; i++) {
-            arrayAuxItem.push(i);
-        }
-        let arrayItem = arrayAuxItem.map(() => {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Hola");
+        let arrayAuxItem = this.state.allItems;
+        let arrayItem = arrayAuxItem.map((item, index) => {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_5__["Item"], { Item: item });
         });
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, arrayItem));
     }
     AddItem() {
-        let animal = new _models__WEBPACK_IMPORTED_MODULE_3__["AnimalModel"]();
+        let animal = new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]();
         this.props.AddItem_LS(animal);
     }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
+            this.showItems(),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: () => this.AddItem() }, "new animal")));
     }
 }
 //Add ContextTypes
 Board.contextTypes = {
-    t: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+    t: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
 };
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(Board));
+
+
+/***/ }),
+
+/***/ "./src/components/Item/Item.tsx":
+/*!**************************************!*\
+  !*** ./src/components/Item/Item.tsx ***!
+  \**************************************/
+/*! exports provided: Item, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Item", function() { return Item; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+
+
+class Item extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+    constructor(props) {
+        super(props);
+    }
+    ;
+    render() {
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.Name),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.Kingdom),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.ConservationStatus),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.Class),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.Region)));
+    }
+}
+Item.contextTypes = {
+    t: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (Item);
+
+
+/***/ }),
+
+/***/ "./src/components/Item/index.ts":
+/*!**************************************!*\
+  !*** ./src/components/Item/index.ts ***!
+  \**************************************/
+/*! exports provided: Item */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Item__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Item */ "./src/components/Item/Item.tsx");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Item", function() { return _Item__WEBPACK_IMPORTED_MODULE_0__["Item"]; });
+
+
 
 
 /***/ }),
@@ -8500,13 +8555,17 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************!*\
   !*** ./src/components/index.ts ***!
   \*********************************/
-/*! exports provided: Main */
+/*! exports provided: Main, Item */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Main */ "./src/components/Main/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Main", function() { return _Main__WEBPACK_IMPORTED_MODULE_0__["Main"]; });
+
+/* harmony import */ var _Item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Item */ "./src/components/Item/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Item", function() { return _Item__WEBPACK_IMPORTED_MODULE_1__["Item"]; });
+
 
 
 
@@ -8517,13 +8576,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-/*! exports provided: renderComponent, Services, translations, Main, IFormField, IFormFieldBoolean, IFormFieldDate, IFormFieldNumber, IFormFieldString, AnimalModel, ZooModel */
+/*! exports provided: renderComponent, Services, translations, Main, Item, IFormField, IFormFieldBoolean, IFormFieldDate, IFormFieldNumber, IFormFieldString, AnimalModel, ZooModel */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components */ "./src/components/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Main", function() { return _components__WEBPACK_IMPORTED_MODULE_0__["Main"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Item", function() { return _components__WEBPACK_IMPORTED_MODULE_0__["Item"]; });
 
 /* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common */ "./src/common.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "renderComponent", function() { return _common__WEBPACK_IMPORTED_MODULE_1__["renderComponent"]; });

@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "immutable": "^3.8.2",
-    "office-ui-fabric-react": "^6.37.0",
     "react": "^16.4.1",
     "react-circle-percentage": "^1.1.0",
     "react-dom": "^16.4.1",

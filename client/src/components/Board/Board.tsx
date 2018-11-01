@@ -1,9 +1,16 @@
 import React from 'react';
+
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { IBoardProps,IBoardState } from '.';
-import { AnimalModel } from '../../models';
 import { getAllItems, addItem } from '../../redux/actions';
+
+import PropTypes from 'prop-types';
+
+import { IBoardProps,IBoardState } from '.';
+
+import { AnimalModel } from '../../models';
+
+import { Item } from '../Item/Item';
+
 
 interface IConnectedDispatch {
     GetAllItems_LS: () => void;
@@ -74,14 +81,10 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
     private showItems(): JSX.Element {
 
-        let arrayAuxItem = []
+        let arrayAuxItem = this.state.allItems;
 
-        for(var i = 0; i<10;i++){
-            arrayAuxItem.push(i);
-        }
-
-        let arrayItem = arrayAuxItem.map(()=>{
-            return  <div>Hola</div>
+        let arrayItem = arrayAuxItem.map((item: AnimalModel, index)=>{
+            return  <Item Item={item}/>
         });
 
         return (<div>{arrayItem}</div>)
@@ -98,6 +101,7 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
         return (
                 <div>
+                    {this.showItems()}
                     <button onClick={()=>this.AddItem()}>new animal</button>
                 </div>
         )

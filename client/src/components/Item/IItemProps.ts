@@ -1,3 +1,5 @@
-export interface IItemProps {
+import { AnimalModel } from "../../models";
 
+export interface IItemProps {
+    Item: AnimalModel
 }
