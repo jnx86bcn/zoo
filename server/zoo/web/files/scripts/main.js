@@ -8374,8 +8374,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/actions */ "./src/redux/actions/index.ts");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Item/Item */ "./src/components/Item/Item.tsx");
-/* harmony import */ var _FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_FormNewAnimal/FormNewAnimal */ "./src/components/_FormNewAnimal/FormNewAnimal.tsx");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../models */ "./src/models/index.ts");
+/* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Item/Item */ "./src/components/Item/Item.tsx");
+/* harmony import */ var _FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../_FormNewAnimal/FormNewAnimal */ "./src/components/_FormNewAnimal/FormNewAnimal.tsx");
+
 
 
 
@@ -8416,8 +8418,10 @@ class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }
     showItems() {
         let arrayAuxallAnimals = this.state.allAnimals;
-        let arrayAnimals = arrayAuxallAnimals.map((item, index) => {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_4__["Item"], { Item: item });
+        let arrayAnimals = arrayAuxallAnimals.map((animalDB) => {
+            let animal = new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]();
+            animal = animal.fromMongoDB(animalDB);
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_5__["Item"], { animal: animal });
         });
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, arrayAnimals));
     }
@@ -8425,7 +8429,7 @@ class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
             this.showItems(),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Create a new animal"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
     }
 }
 //Add ContextTypes
@@ -8460,11 +8464,15 @@ class Item extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     ;
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.Name),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.Kingdom),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.ConservationStatus),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.Class),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.Item.Region)));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.Name.value),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("picture", null,
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { src: this.props.animal.UrlPhoto.value })),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.Kingdom.value),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.ConservationStatus.value),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.Class.value),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.Region.value),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.ShortInfo.value),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.LongInfo.value)));
     }
 }
 Item.contextTypes = {
@@ -8580,30 +8588,39 @@ class FormNewAnimal extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
     constructor(props) {
         super(props);
         this.state = {
-            animal: new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]
+            animal: new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]()
         };
-        //this.OnChangeField.bind(this);
     }
     ;
     OnChangeField(fieldName, target) {
-        this.state.animal[fieldName].value = target.value;
-        console.log(this.state.animal);
+        let auxModel = this.state.animal;
+        auxModel[fieldName].value = target.value;
+        this.setState({
+            animal: auxModel
+        });
     }
     AddNewAnimal(animal) {
         this.props.AddItem_LS(animal);
+        this.setState({ animal: new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]() });
     }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Animal name"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Name", event.target), placeholder: "animal name" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Name", event.target), placeholder: "Name", value: this.state.animal.Name.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Link photo animal"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("UrlPhoto", event.target), placeholder: "UrlPhoto", value: this.state.animal.UrlPhoto.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Kingdom"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Kingdom", event.target), placeholder: "Kingdom" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Kingdom", event.target), placeholder: "Kingdom", value: this.state.animal.Kingdom.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Class"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Class", event.target), placeholder: "Class" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Class", event.target), placeholder: "Class", value: this.state.animal.Class.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Conservation status"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Conservation_status", event.target), placeholder: "Conservation status" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("ConservationStatus", event.target), placeholder: "Conservation status", value: this.state.animal.ConservationStatus.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Region"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Region", event.target), placeholder: "Region" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Region", event.target), placeholder: "Region", value: this.state.animal.Region.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Short info"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { placeholder: "ShortInfo", onChange: () => this.OnChangeField("ShortInfo", event.target), value: this.state.animal.ShortInfo.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Long info"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { placeholder: "LongInfo", onChange: () => this.OnChangeField("LongInfo", event.target), value: this.state.animal.LongInfo.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: () => this.AddNewAnimal(this.state.animal) }, "Add animal")));
     }
 }
@@ -8852,13 +8869,43 @@ __webpack_require__.r(__webpack_exports__);
 class AnimalModel {
     constructor() {
         this.Name = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Name');
+        this.UrlPhoto = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('UrlPhoto');
         this.Kingdom = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Kingdom');
         this.Class = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Class');
         this.ConservationStatus = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('ConservationStatus');
         this.Region = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Region');
         this.Extinct = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldBoolean"]('Extinct');
+        this.ShortInfo = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('ShortInfo');
+        this.LongInfo = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('LongInfo');
         this.Birth = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Birth');
         this.Death = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Death');
+    }
+    toMongoDB() {
+        let newAnimal = {
+            Name: this.Name.value != '' ? this.Name.value : '',
+            UrlPhoto: this.UrlPhoto.value != '' ? this.UrlPhoto.value : '',
+            Kingdom: this.Kingdom.value != '' ? this.Kingdom.value : '',
+            Class: this.Class.value != '' ? this.Class.value : '',
+            ConservationStatus: this.ConservationStatus.value != '' ? this.ConservationStatus.value : '',
+            Region: this.Region.value != '' ? this.Region.value : '',
+            Extinct: this.Extinct.value,
+            ShortInfo: this.ShortInfo.value != '' ? this.ShortInfo.value : '',
+            LongInfo: this.LongInfo.value != '' ? this.LongInfo.value : ''
+        };
+        return newAnimal;
+    }
+    fromMongoDB(mongoModel) {
+        let animal = new AnimalModel();
+        animal.Name.value = mongoModel.Name != "" ? mongoModel.Name : "";
+        animal.UrlPhoto.value = mongoModel.UrlPhoto != "" ? mongoModel.UrlPhoto : "";
+        animal.Class.value = mongoModel.Class != "" ? mongoModel.Class : "";
+        animal.Kingdom.value = mongoModel.Kingdom != "" ? mongoModel.Kingdom : "";
+        animal.Region.value = mongoModel.Region != "" ? mongoModel.Region : "";
+        animal.ConservationStatus.value = mongoModel.ConservationStatus != "" ? mongoModel.ConservationStatus : "";
+        animal.Extinct.value = mongoModel.Extinct;
+        animal.ShortInfo.value = mongoModel.ShortInfo != "" ? mongoModel.ShortInfo : "";
+        animal.LongInfo.value = mongoModel.LongInfo != "" ? mongoModel.LongInfo : "";
+        return animal;
     }
 }
 
@@ -8986,15 +9033,14 @@ function getAllAnimals() {
         // Launche request actions
         dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(true));
         dispatch(getAllAnimals_Request());
-        _services__WEBPACK_IMPORTED_MODULE_1__["Services"].getAllItems()
-            .then((data) => {
+        _services__WEBPACK_IMPORTED_MODULE_1__["Services"].getAllItems().then((arrayAnimals) => {
             // data.forEach(animal=>{
             //     animal.Birth = new Date(animal.Birth.match(/\d+/)[0] * 1);
             //     animal.Death = new Date(animal.Death.match(/\d+/)[0] * 1);
             // })
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setSuccessMessage"])(""));
-            dispatch(getAllAnimals_Success(data));
+            dispatch(getAllAnimals_Success(arrayAnimals));
         }).catch((err) => {
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setErrorMessage"])(""));
@@ -9013,16 +9059,15 @@ const addNewAnimal_Error = (error) => ({
     type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].ADD_NEW_ANIMAL_ERROR,
     payload: error.message
 });
-function addNewAnimal(item) {
+function addNewAnimal(animal) {
     return (dispatch) => __awaiter(this, void 0, void 0, function* () {
         // Launche request actions
         dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(true));
         dispatch(addNewAnimal_Request());
-        _services__WEBPACK_IMPORTED_MODULE_1__["Services"].addItem(item)
-            .then((data) => {
+        _services__WEBPACK_IMPORTED_MODULE_1__["Services"].addItem(animal.toMongoDB()).then((animal) => {
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setSuccessMessage"])(""));
-            dispatch(addNewAnimal_Success(data));
+            dispatch(addNewAnimal_Success(animal));
             dispatch(getAllAnimals());
         }).catch((err) => {
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));

@@ -78,8 +78,10 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
         let arrayAuxallAnimals = this.state.allAnimals;
 
-        let arrayAnimals = arrayAuxallAnimals.map((item: AnimalModel, index)=>{
-            return  <Item Item={item}/>
+        let arrayAnimals = arrayAuxallAnimals.map((animalDB: any)=>{
+            let animal: AnimalModel = new AnimalModel();
+            animal = animal.fromMongoDB(animalDB);
+            return  <Item animal={animal}/>
         });
 
         return (<div>{arrayAnimals}</div>)

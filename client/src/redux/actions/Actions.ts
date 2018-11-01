@@ -36,15 +36,14 @@ export function getAllAnimals() {
         dispatch(setInProcess(true));
         dispatch(getAllAnimals_Request());
 
-        Services.getAllItems()
-        .then((data: Array<AnimalModel>)=>{
+        Services.getAllItems().then((arrayAnimals: Array<any>)=>{
             // data.forEach(animal=>{
             //     animal.Birth = new Date(animal.Birth.match(/\d+/)[0] * 1);
             //     animal.Death = new Date(animal.Death.match(/\d+/)[0] * 1);
             // })
             dispatch(setInProcess(false));
             dispatch(setSuccessMessage(""));
-            dispatch(getAllAnimals_Success(data));
+            dispatch(getAllAnimals_Success(arrayAnimals));
         }).catch((err)=>{
             dispatch(setInProcess(false));
             dispatch(setErrorMessage(""));
@@ -68,7 +67,7 @@ const addNewAnimal_Error = (error: Error): Action => ({
 });
 
 
-export function addNewAnimal(item: AnimalModel) {
+export function addNewAnimal(animal: AnimalModel) {
 
     return async (dispatch: any) => {
 
@@ -76,11 +75,10 @@ export function addNewAnimal(item: AnimalModel) {
         dispatch(setInProcess(true));
         dispatch(addNewAnimal_Request());
 
-        Services.addItem(item)
-        .then((data: AnimalModel)=>{
+        Services.addItem(animal.toMongoDB()).then((animal: AnimalModel)=>{
             dispatch(setInProcess(false));
             dispatch(setSuccessMessage(""));
-            dispatch(addNewAnimal_Success(data));
+            dispatch(addNewAnimal_Success(animal));
             dispatch(getAllAnimals());
         }).catch((err)=>{
             dispatch(setInProcess(false));

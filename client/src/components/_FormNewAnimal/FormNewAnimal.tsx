@@ -38,25 +38,24 @@ class FormNewAnimal extends React.Component<IConnectedDispatch,INewFormAnimalSta
 		t: PropTypes.func.isRequired
 	}
 
-
     constructor(props) {
-
         super(props);
-
         this.state = {
-            animal: new AnimalModel
+            animal: new AnimalModel()
         }
-
-        //this.OnChangeField.bind(this);
     };    
 
     private OnChangeField(fieldName:string,target: any) {
-        this.state.animal[fieldName].value = target.value;
-        console.log(this.state.animal)
+        let auxModel =this.state.animal;
+        auxModel[fieldName].value = target.value;
+        this.setState({
+            animal: auxModel
+        })
     }
 
     private AddNewAnimal(animal: AnimalModel) {
         this.props.AddItem_LS(animal);
+        this.setState({animal: new AnimalModel()});
     }
 
     public render() {
@@ -64,19 +63,28 @@ class FormNewAnimal extends React.Component<IConnectedDispatch,INewFormAnimalSta
         return (
                 <div>
                     <label >Animal name</label>
-                    <input type="text" onChange={()=>this.OnChangeField("Name",event.target)} placeholder="animal name" />
+                    <input type="text" onChange={()=>this.OnChangeField("Name",event.target)} placeholder="Name" value = {this.state.animal.Name.value}/>
+
+                    <label >Link photo animal</label>
+                    <input type="text" onChange={()=>this.OnChangeField("UrlPhoto",event.target)} placeholder="UrlPhoto" value = {this.state.animal.UrlPhoto.value}/>
 
                     <label >Kingdom</label>
-                    <input type="text" onChange={()=>this.OnChangeField("Kingdom",event.target)} placeholder="Kingdom" />
+                    <input type="text" onChange={()=>this.OnChangeField("Kingdom",event.target)} placeholder="Kingdom" value = {this.state.animal.Kingdom.value}/>
 
                     <label >Class</label>
-                    <input type="text" onChange={()=>this.OnChangeField("Class",event.target)} placeholder="Class" />
+                    <input type="text" onChange={()=>this.OnChangeField("Class",event.target)} placeholder="Class" value = {this.state.animal.Class.value}/>
 
                     <label >Conservation status</label>
-                    <input type="text" onChange={()=>this.OnChangeField("Conservation_status",event.target)} placeholder="Conservation status" />
+                    <input type="text" onChange={()=>this.OnChangeField("ConservationStatus",event.target)} placeholder="Conservation status" value = {this.state.animal.ConservationStatus.value}/>
 
                     <label >Region</label>
-                    <input type="text" onChange={()=>this.OnChangeField("Region",event.target)} placeholder="Region" />
+                    <input type="text" onChange={()=>this.OnChangeField("Region",event.target)} placeholder="Region" value = {this.state.animal.Region.value}/>
+
+                    <label >Short info</label>
+                    <textarea placeholder="ShortInfo" onChange={()=>this.OnChangeField("ShortInfo",event.target)} value = {this.state.animal.ShortInfo.value}/>
+
+                    <label >Long info</label>
+                    <textarea placeholder="LongInfo" onChange={()=>this.OnChangeField("LongInfo",event.target)} value = {this.state.animal.LongInfo.value}/>
 
                     <button onClick={()=>this.AddNewAnimal(this.state.animal)} >Add animal</button>
                 </div>

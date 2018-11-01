@@ -23,11 +23,16 @@ export class Item extends React.Component<IItemProps, IItemState> {
 
         return (
                 <div>
-                   <label>{this.props.Item.Name}</label>
-                   <label>{this.props.Item.Kingdom}</label>
-                   <label>{this.props.Item.ConservationStatus}</label>
-                   <label>{this.props.Item.Class}</label>
-                   <label>{this.props.Item.Region}</label>
+                   <label>{this.props.animal.Name.value}</label>
+                   <picture>
+                    <img src={this.props.animal.UrlPhoto.value}/>
+                   </picture>
+                   <label>{this.props.animal.Kingdom.value}</label>
+                   <label>{this.props.animal.ConservationStatus.value}</label>
+                   <label>{this.props.animal.Class.value}</label>
+                   <label>{this.props.animal.Region.value}</label>
+                   <label>{this.props.animal.ShortInfo.value}</label>
+                   <label>{this.props.animal.LongInfo.value}</label>
                 </div>
         )
     }
