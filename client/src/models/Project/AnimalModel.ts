@@ -1,4 +1,4 @@
-import { IFormFieldBoolean, IFormFieldString } from 'Base';
+import { IFormFieldBoolean, IFormFieldString } from '../Base';
 
 export class AnimalModel {
 
@@ -13,14 +13,14 @@ export class AnimalModel {
     Death: IFormFieldString;
 
     constructor() {
-        this.Name = "name";
-        this.Kingdom = "Kingdom";
-        this.Class = "Class";
-        this.ConservationStatus = "ConservationStatus";
-        this.Region = "Region";
-        this.Extinct = false;
-        this.Birth = new Date();
-        this.Death = new Date();
+        this.Name = new IFormFieldString('Name');
+        this.Kingdom = new IFormFieldString('Kingdom');
+        this.Class = new IFormFieldString('Class');
+        this.ConservationStatus = new IFormFieldString('ConservationStatus');
+        this.Region = new IFormFieldString('Region');
+        this.Extinct = new IFormFieldBoolean('Extinct');
+        this.Birth = new IFormFieldString('Birth');
+        this.Death = new IFormFieldString('Death');
     }
 
 }

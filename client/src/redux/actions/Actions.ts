@@ -38,10 +38,10 @@ export function getAllAnimals() {
 
         Services.getAllItems()
         .then((data: Array<AnimalModel>)=>{
-            data.forEach(item=>{
-                item.Birth = new Date(item.Birth.match(/\d+/)[0] * 1);
-                item.Death = new Date(item.Death.match(/\d+/)[0] * 1);
-            })
+            // data.forEach(animal=>{
+            //     animal.Birth = new Date(animal.Birth.match(/\d+/)[0] * 1);
+            //     animal.Death = new Date(animal.Death.match(/\d+/)[0] * 1);
+            // })
             dispatch(setInProcess(false));
             dispatch(setSuccessMessage(""));
             dispatch(getAllAnimals_Success(data));

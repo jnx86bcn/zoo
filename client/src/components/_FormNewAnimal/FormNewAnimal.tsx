@@ -43,10 +43,19 @@ class FormNewAnimal extends React.Component<IConnectedDispatch,INewFormAnimalSta
 
         super(props);
 
+        this.state = {
+            animal: new AnimalModel
+        }
+
+        //this.OnChangeField.bind(this);
     };    
 
-    private AddItem() {
-        let animal = new AnimalModel();
+    private OnChangeField(fieldName:string,target: any) {
+        this.state.animal[fieldName].value = target.value;
+        console.log(this.state.animal)
+    }
+
+    private AddNewAnimal(animal: AnimalModel) {
         this.props.AddItem_LS(animal);
     }
 
@@ -55,21 +64,21 @@ class FormNewAnimal extends React.Component<IConnectedDispatch,INewFormAnimalSta
         return (
                 <div>
                     <label >Animal name</label>
-                    <input type="text" placeholder="animal name" />
+                    <input type="text" onChange={()=>this.OnChangeField("Name",event.target)} placeholder="animal name" />
 
                     <label >Kingdom</label>
-                    <input type="text" placeholder="Kingdom" />
+                    <input type="text" onChange={()=>this.OnChangeField("Kingdom",event.target)} placeholder="Kingdom" />
 
                     <label >Class</label>
-                    <input type="text" placeholder="Class" />
+                    <input type="text" onChange={()=>this.OnChangeField("Class",event.target)} placeholder="Class" />
 
                     <label >Conservation status</label>
-                    <input type="text" placeholder="Conservation status" />
+                    <input type="text" onChange={()=>this.OnChangeField("Conservation_status",event.target)} placeholder="Conservation status" />
 
                     <label >Region</label>
-                    <input type="text" placeholder="Region" />
+                    <input type="text" onChange={()=>this.OnChangeField("Region",event.target)} placeholder="Region" />
 
-                    <button>Add animal</button>
+                    <button onClick={()=>this.AddNewAnimal(this.state.animal)} >Add animal</button>
                 </div>
         )
     }

@@ -8579,25 +8579,32 @@ const mapDispatchToProps = (dispatch) => ({
 class FormNewAnimal extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            animal: new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]
+        };
+        //this.OnChangeField.bind(this);
     }
     ;
-    AddItem() {
-        let animal = new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]();
+    OnChangeField(fieldName, target) {
+        this.state.animal[fieldName].value = target.value;
+        console.log(this.state.animal);
+    }
+    AddNewAnimal(animal) {
         this.props.AddItem_LS(animal);
     }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Animal name"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "animal name" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Name", event.target), placeholder: "animal name" }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Kingdom"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "Kingdom" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Kingdom", event.target), placeholder: "Kingdom" }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Class"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "Class" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Class", event.target), placeholder: "Class" }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Conservation status"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "Conservation status" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Conservation_status", event.target), placeholder: "Conservation status" }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Region"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "Region" }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Add animal")));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Region", event.target), placeholder: "Region" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: () => this.AddNewAnimal(this.state.animal) }, "Add animal")));
     }
 }
 //Add ContextTypes
@@ -8840,16 +8847,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimalModel", function() { return AnimalModel; });
+/* harmony import */ var _Base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Base */ "./src/models/Base/index.ts");
+
 class AnimalModel {
     constructor() {
-        this.Name = "name";
-        this.Kingdom = "Kingdom";
-        this.Class = "Class";
-        this.ConservationStatus = "ConservationStatus";
-        this.Region = "Region";
-        this.Extinct = false;
-        this.Birth = new Date();
-        this.Death = new Date();
+        this.Name = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Name');
+        this.Kingdom = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Kingdom');
+        this.Class = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Class');
+        this.ConservationStatus = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('ConservationStatus');
+        this.Region = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Region');
+        this.Extinct = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldBoolean"]('Extinct');
+        this.Birth = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Birth');
+        this.Death = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Death');
     }
 }
 
@@ -8979,10 +8988,10 @@ function getAllAnimals() {
         dispatch(getAllAnimals_Request());
         _services__WEBPACK_IMPORTED_MODULE_1__["Services"].getAllItems()
             .then((data) => {
-            data.forEach(item => {
-                item.Birth = new Date(item.Birth.match(/\d+/)[0] * 1);
-                item.Death = new Date(item.Death.match(/\d+/)[0] * 1);
-            });
+            // data.forEach(animal=>{
+            //     animal.Birth = new Date(animal.Birth.match(/\d+/)[0] * 1);
+            //     animal.Death = new Date(animal.Death.match(/\d+/)[0] * 1);
+            // })
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setSuccessMessage"])(""));
             dispatch(getAllAnimals_Success(data));
