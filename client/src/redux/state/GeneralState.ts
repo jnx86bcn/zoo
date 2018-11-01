@@ -7,8 +7,8 @@ import { IGeneralState } from '.';
 
 export const initialState: IGeneralState = {
     
-    item: new AnimalModel(),
-    items: [],
+    animal: new AnimalModel(),
+    animals: [],
     
     errorData: '',
     successData: '',
@@ -20,8 +20,8 @@ export const initialState: IGeneralState = {
 export class GeneralState extends Immutable.Record(initialState) implements IGeneralState {
 
     //Getters
-    public readonly item: AnimalModel;
-    public readonly items: Array<AnimalModel>;
+    public readonly animal: AnimalModel;
+    public readonly animals: Array<AnimalModel>;
 
     public readonly errorData: string;
     public readonly successData: string;
@@ -41,12 +41,12 @@ export class GeneralState extends Immutable.Record(initialState) implements IGen
     }
 
     // Project METHODS 
-    public getAllItems(items: Array<AnimalModel>): GeneralState {
-        return this.set("items", items) as GeneralState;
+    public getAllAnimals(animals: Array<AnimalModel>): GeneralState {
+        return this.set("animals", animals) as GeneralState;
     }
 
-    public addItem(item: AnimalModel): GeneralState {
-        return this.set("item", item) as GeneralState;
+    public addNewAnimal(animal: AnimalModel): GeneralState {
+        return this.set("animal", animal) as GeneralState;
     }
 
 }

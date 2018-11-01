@@ -8,17 +8,17 @@ const initState = new GeneralState();
 export const projectsReducer: Reducer<GeneralState> = (state: GeneralState = initState, action: Action): GeneralState => {
 
     switch (action.type) {
-        case ActionTypes.GET_ITEMS_REQUEST:
+        case ActionTypes.GET_ALL_ANIMALS_REQUEST:
             return state;
-        case ActionTypes.GET_ITEMS_SUCCESS:
-            return state.getAllItems(action.payload);
-        case ActionTypes.GET_ITEMS_ERROR:
+        case ActionTypes.GET_ALL_ANIMALS_SUCCESS:
+            return state.getAllAnimals(action.payload);
+        case ActionTypes.GET_ALL_ANIMALS_ERROR:
             return state;
-        case ActionTypes.ADD_ITEM_REQUEST:
+        case ActionTypes.ADD_NEW_ANIMAL_REQUEST:
             return state;
-        case ActionTypes.ADD_ITEM_SUCCESS:
-            return state.addItem(action.payload);
-        case ActionTypes.ADD_ITEM_ERROR:
+        case ActionTypes.ADD_NEW_ANIMAL_SUCCESS:
+            return state.addNewAnimal(action.payload);
+        case ActionTypes.ADD_NEW_ANIMAL_ERROR:
             return state;
         default: 
             return state;

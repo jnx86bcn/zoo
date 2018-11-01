@@ -11,15 +11,15 @@ import { setErrorMessage, setSuccessMessage, setInProcess } from './successActio
 /**
  * Actions to GET all items
  */
-const getItems_Request = (): Action => ({
-    type: ActionTypes.GET_ITEMS_REQUEST
+const getAllAnimals_Request = (): Action => ({
+    type: ActionTypes.GET_ALL_ANIMALS_REQUEST
 });
-const getItems_Success = (animals: Array<AnimalModel>): Action => ({
-    type: ActionTypes.GET_ITEMS_SUCCESS,
+const getAllAnimals_Success = (animals: Array<AnimalModel>): Action => ({
+    type: ActionTypes.GET_ALL_ANIMALS_SUCCESS,
     payload: animals
 });
-const getItems_Error = (error: Error): Action => ({
-    type: ActionTypes.GET_ITEMS_ERROR,
+const getAllAnimals_Error = (error: Error): Action => ({
+    type: ActionTypes.GET_ALL_ANIMALS_ERROR,
     payload: error.message
 });
 
@@ -28,13 +28,13 @@ const getItems_Error = (error: Error): Action => ({
  * Get all projects in list
  * @param listName projects
  */
-export function getAllItems() {
+export function getAllAnimals() {
 
     return async (dispatch: any) => {
 
         // Launche request actions
         dispatch(setInProcess(true));
-        dispatch(getItems_Request());
+        dispatch(getAllAnimals_Request());
 
         Services.getAllItems()
         .then((data: Array<AnimalModel>)=>{
@@ -44,48 +44,48 @@ export function getAllItems() {
             })
             dispatch(setInProcess(false));
             dispatch(setSuccessMessage(""));
-            dispatch(getItems_Success(data));
+            dispatch(getAllAnimals_Success(data));
         }).catch((err)=>{
             dispatch(setInProcess(false));
             dispatch(setErrorMessage(""));
-            dispatch(getItems_Error(err));
+            dispatch(getAllAnimals_Error(err));
         });
 
     }
 }
 
 
-const addItem_Request = (): Action => ({
-    type: ActionTypes.ADD_ITEM_REQUEST
+const addNewAnimal_Request = (): Action => ({
+    type: ActionTypes.ADD_NEW_ANIMAL_REQUEST
 });
-const addItem_Success = (animals: AnimalModel): Action => ({
-    type: ActionTypes.ADD_ITEM_SUCCESS,
+const addNewAnimal_Success = (animals: AnimalModel): Action => ({
+    type: ActionTypes.ADD_NEW_ANIMAL_SUCCESS,
     payload: animals
 });
-const addItem_Error = (error: Error): Action => ({
-    type: ActionTypes.ADD_ITEM_ERROR,
+const addNewAnimal_Error = (error: Error): Action => ({
+    type: ActionTypes.ADD_NEW_ANIMAL_ERROR,
     payload: error.message
 });
 
 
-export function addItem(item: AnimalModel) {
+export function addNewAnimal(item: AnimalModel) {
 
     return async (dispatch: any) => {
 
         // Launche request actions
         dispatch(setInProcess(true));
-        dispatch(addItem_Request());
+        dispatch(addNewAnimal_Request());
 
         Services.addItem(item)
         .then((data: AnimalModel)=>{
             dispatch(setInProcess(false));
             dispatch(setSuccessMessage(""));
-            dispatch(addItem_Success(data));
-            dispatch(getAllItems());
+            dispatch(addNewAnimal_Success(data));
+            dispatch(getAllAnimals());
         }).catch((err)=>{
             dispatch(setInProcess(false));
             dispatch(setErrorMessage(""));
-            dispatch(addItem_Error(err));
+            dispatch(addNewAnimal_Error(err));
         });
 
     }

@@ -8374,65 +8374,58 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/actions */ "./src/redux/actions/index.ts");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../models */ "./src/models/index.ts");
-/* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Item/Item */ "./src/components/Item/Item.tsx");
+/* harmony import */ var _Item_Item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Item/Item */ "./src/components/Item/Item.tsx");
+/* harmony import */ var _FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_FormNewAnimal/FormNewAnimal */ "./src/components/_FormNewAnimal/FormNewAnimal.tsx");
 
 
 
 
 
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
-        allItems_LS: state.projectsReducer.items,
-        AddItem_LS: state.projectsReducer.item,
+        allAnimals_LS: state.projectsReducer.animals
     };
 }
 //Map the actions to the properties of the Component.
 const mapDispatchToProps = (dispatch) => ({
-    GetAllItems_LS: () => {
-        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["getAllItems"])());
-    },
-    AddItem_LS: (item) => {
-        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["addItem"])(item));
+    GetAllAnimals_LS: () => {
+        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["getAllAnimals"])());
     }
 });
 class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allItems: []
+            allAnimals: []
         };
     }
     ;
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.allItems_LS != prevState.allItems) {
-            return { allItems: nextProps.allItems_LS };
+        if (nextProps.allAnimals_LS != prevState.allAnimals) {
+            return { allAnimals: nextProps.allAnimals_LS };
         }
     }
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.allItems_LS != prevState.allItems) {
-            this.setState({ allItems: prevProps.allItems_LS });
+        if (prevProps.allAnimals_LS != prevState.allAnimals) {
+            this.setState({ allAnimals: prevProps.allAnimals_LS });
         }
     }
     componentDidMount() {
-        this.props.GetAllItems_LS();
+        this.props.GetAllAnimals_LS();
     }
     showItems() {
-        let arrayAuxItem = this.state.allItems;
-        let arrayItem = arrayAuxItem.map((item, index) => {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_5__["Item"], { Item: item });
+        let arrayAuxallAnimals = this.state.allAnimals;
+        let arrayAnimals = arrayAuxallAnimals.map((item, index) => {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Item_Item__WEBPACK_IMPORTED_MODULE_4__["Item"], { Item: item });
         });
-        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, arrayItem));
-    }
-    AddItem() {
-        let animal = new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]();
-        this.props.AddItem_LS(animal);
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, arrayAnimals));
     }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
             this.showItems(),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: () => this.AddItem() }, "new animal")));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Create a new animal"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
     }
 }
 //Add ContextTypes
@@ -8547,6 +8540,71 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Main", function() { return _Main__WEBPACK_IMPORTED_MODULE_0__["Main"]; });
 
 
+
+
+/***/ }),
+
+/***/ "./src/components/_FormNewAnimal/FormNewAnimal.tsx":
+/*!*********************************************************!*\
+  !*** ./src/components/_FormNewAnimal/FormNewAnimal.tsx ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/actions */ "./src/redux/actions/index.ts");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../models */ "./src/models/index.ts");
+
+
+
+
+
+function mapStateToProps(state) {
+    return {
+        AddItem_LS: state.projectsReducer.animal
+    };
+}
+//Map the actions to the properties of the Component.
+const mapDispatchToProps = (dispatch) => ({
+    AddItem_LS: (animal) => {
+        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["addNewAnimal"])(animal));
+    }
+});
+class FormNewAnimal extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
+    constructor(props) {
+        super(props);
+    }
+    ;
+    AddItem() {
+        let animal = new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]();
+        this.props.AddItem_LS(animal);
+    }
+    render() {
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Animal name"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "animal name" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Kingdom"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "Kingdom" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Class"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "Class" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Conservation status"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "Conservation status" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Region"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", placeholder: "Region" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Add animal")));
+    }
+}
+//Add ContextTypes
+FormNewAnimal.contextTypes = {
+    t: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(FormNewAnimal));
 
 
 /***/ }),
@@ -8875,13 +8933,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************!*\
   !*** ./src/redux/actions/Actions.ts ***!
   \**************************************/
-/*! exports provided: getAllItems, addItem */
+/*! exports provided: getAllAnimals, addNewAnimal */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllItems", function() { return getAllItems; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addItem", function() { return addItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllAnimals", function() { return getAllAnimals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewAnimal", function() { return addNewAnimal; });
 /* harmony import */ var _actionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actionTypes */ "./src/redux/actions/actionTypes.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services */ "./src/services/index.ts");
 /* harmony import */ var _successActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./successActions */ "./src/redux/actions/successActions.ts");
@@ -8899,26 +8957,26 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 /**
  * Actions to GET all items
  */
-const getItems_Request = () => ({
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].GET_ITEMS_REQUEST
+const getAllAnimals_Request = () => ({
+    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].GET_ALL_ANIMALS_REQUEST
 });
-const getItems_Success = (animals) => ({
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].GET_ITEMS_SUCCESS,
+const getAllAnimals_Success = (animals) => ({
+    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].GET_ALL_ANIMALS_SUCCESS,
     payload: animals
 });
-const getItems_Error = (error) => ({
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].GET_ITEMS_ERROR,
+const getAllAnimals_Error = (error) => ({
+    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].GET_ALL_ANIMALS_ERROR,
     payload: error.message
 });
 /**
  * Get all projects in list
  * @param listName projects
  */
-function getAllItems() {
+function getAllAnimals() {
     return (dispatch) => __awaiter(this, void 0, void 0, function* () {
         // Launche request actions
         dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(true));
-        dispatch(getItems_Request());
+        dispatch(getAllAnimals_Request());
         _services__WEBPACK_IMPORTED_MODULE_1__["Services"].getAllItems()
             .then((data) => {
             data.forEach(item => {
@@ -8927,40 +8985,40 @@ function getAllItems() {
             });
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setSuccessMessage"])(""));
-            dispatch(getItems_Success(data));
+            dispatch(getAllAnimals_Success(data));
         }).catch((err) => {
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setErrorMessage"])(""));
-            dispatch(getItems_Error(err));
+            dispatch(getAllAnimals_Error(err));
         });
     });
 }
-const addItem_Request = () => ({
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].ADD_ITEM_REQUEST
+const addNewAnimal_Request = () => ({
+    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].ADD_NEW_ANIMAL_REQUEST
 });
-const addItem_Success = (animals) => ({
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].ADD_ITEM_SUCCESS,
+const addNewAnimal_Success = (animals) => ({
+    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].ADD_NEW_ANIMAL_SUCCESS,
     payload: animals
 });
-const addItem_Error = (error) => ({
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].ADD_ITEM_ERROR,
+const addNewAnimal_Error = (error) => ({
+    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].ADD_NEW_ANIMAL_ERROR,
     payload: error.message
 });
-function addItem(item) {
+function addNewAnimal(item) {
     return (dispatch) => __awaiter(this, void 0, void 0, function* () {
         // Launche request actions
         dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(true));
-        dispatch(addItem_Request());
+        dispatch(addNewAnimal_Request());
         _services__WEBPACK_IMPORTED_MODULE_1__["Services"].addItem(item)
             .then((data) => {
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setSuccessMessage"])(""));
-            dispatch(addItem_Success(data));
-            dispatch(getAllItems());
+            dispatch(addNewAnimal_Success(data));
+            dispatch(getAllAnimals());
         }).catch((err) => {
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setInProcess"])(false));
             dispatch(Object(_successActions__WEBPACK_IMPORTED_MODULE_2__["setErrorMessage"])(""));
-            dispatch(addItem_Error(err));
+            dispatch(addNewAnimal_Error(err));
         });
     });
 }
@@ -8983,12 +9041,12 @@ var ActionTypes;
     ActionTypes["SET_ERROR"] = "SET_ERROR";
     ActionTypes["SET_SUCCESS"] = "SET_SUCCESS";
     ActionTypes["SET_INPROCESS"] = "SET_INPROCESS";
-    ActionTypes["ADD_ITEM_REQUEST"] = "ADD_ITEM_REQUEST";
-    ActionTypes["ADD_ITEM_SUCCESS"] = "ADD_ITEM_SUCCESS";
-    ActionTypes["ADD_ITEM_ERROR"] = "ADD_ITEM_ERROR";
-    ActionTypes["GET_ITEMS_REQUEST"] = "GET_ITEMS_REQUEST";
-    ActionTypes["GET_ITEMS_SUCCESS"] = "GET_ITEMS_SUCCESS";
-    ActionTypes["GET_ITEMS_ERROR"] = "GET_ITEMS_ERROR";
+    ActionTypes["ADD_NEW_ANIMAL_REQUEST"] = "ADD_NEW_ANIMAL_REQUEST";
+    ActionTypes["ADD_NEW_ANIMAL_SUCCESS"] = "ADD_NEW_ANIMAL_SUCCESS";
+    ActionTypes["ADD_NEW_ANIMAL_ERROR"] = "ADD_NEW_ANIMAL_ERROR";
+    ActionTypes["GET_ALL_ANIMALS_REQUEST"] = "GET_ALL_ANIMALS_REQUEST";
+    ActionTypes["GET_ALL_ANIMALS_SUCCESS"] = "GET_ALL_ANIMALS_SUCCESS";
+    ActionTypes["GET_ALL_ANIMALS_ERROR"] = "GET_ALL_ANIMALS_ERROR";
 })(ActionTypes || (ActionTypes = {}));
 
 
@@ -8998,15 +9056,15 @@ var ActionTypes;
 /*!************************************!*\
   !*** ./src/redux/actions/index.ts ***!
   \************************************/
-/*! exports provided: getAllItems, addItem, ActionTypes */
+/*! exports provided: getAllAnimals, addNewAnimal, ActionTypes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Actions */ "./src/redux/actions/Actions.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getAllItems", function() { return _Actions__WEBPACK_IMPORTED_MODULE_0__["getAllItems"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getAllAnimals", function() { return _Actions__WEBPACK_IMPORTED_MODULE_0__["getAllAnimals"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "addItem", function() { return _Actions__WEBPACK_IMPORTED_MODULE_0__["addItem"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "addNewAnimal", function() { return _Actions__WEBPACK_IMPORTED_MODULE_0__["addNewAnimal"]; });
 
 /* harmony import */ var _actionTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actionTypes */ "./src/redux/actions/actionTypes.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ActionTypes", function() { return _actionTypes__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"]; });
@@ -9073,17 +9131,17 @@ __webpack_require__.r(__webpack_exports__);
 const initState = new _state__WEBPACK_IMPORTED_MODULE_0__["GeneralState"]();
 const projectsReducer = (state = initState, action) => {
     switch (action.type) {
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].GET_ITEMS_REQUEST:
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].GET_ALL_ANIMALS_REQUEST:
             return state;
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].GET_ITEMS_SUCCESS:
-            return state.getAllItems(action.payload);
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].GET_ITEMS_ERROR:
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].GET_ALL_ANIMALS_SUCCESS:
+            return state.getAllAnimals(action.payload);
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].GET_ALL_ANIMALS_ERROR:
             return state;
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].ADD_ITEM_REQUEST:
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].ADD_NEW_ANIMAL_REQUEST:
             return state;
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].ADD_ITEM_SUCCESS:
-            return state.addItem(action.payload);
-        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].ADD_ITEM_ERROR:
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].ADD_NEW_ANIMAL_SUCCESS:
+            return state.addNewAnimal(action.payload);
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].ADD_NEW_ANIMAL_ERROR:
             return state;
         default:
             return state;
@@ -9192,8 +9250,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const initialState = {
-    item: new _models__WEBPACK_IMPORTED_MODULE_1__["AnimalModel"](),
-    items: [],
+    animal: new _models__WEBPACK_IMPORTED_MODULE_1__["AnimalModel"](),
+    animals: [],
     errorData: '',
     successData: '',
     inProcess: false,
@@ -9211,11 +9269,11 @@ class GeneralState extends immutable__WEBPACK_IMPORTED_MODULE_0__["Record"](init
         return this.set("inProcess", inProcess);
     }
     // Project METHODS 
-    getAllItems(items) {
-        return this.set("items", items);
+    getAllAnimals(animals) {
+        return this.set("animals", animals);
     }
-    addItem(item) {
-        return this.set("item", item);
+    addNewAnimal(animal) {
+        return this.set("animal", animal);
     }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { getAllItems, addItem } from '../../redux/actions';
+import { getAllAnimals } from '../../redux/actions';
 
 import PropTypes from 'prop-types';
 
@@ -10,33 +10,28 @@ import { IBoardProps,IBoardState } from '.';
 import { AnimalModel } from '../../models';
 
 import { Item } from '../Item/Item';
+import  FormNewAnimal from '../_FormNewAnimal/FormNewAnimal';
 
 
 interface IConnectedDispatch {
-    GetAllItems_LS: () => void;
-    AddItem_LS: (item: AnimalModel) => void;
+    GetAllAnimals_LS: () => void;
 }
 
 interface IConnectedState {
-    allItems_LS: Array<AnimalModel>;
-    AddItem_LS: AnimalModel;
+    allAnimals_LS: Array<AnimalModel>;
 }
 
-function mapStateToProps(state: any, ownProps: IBoardProps): IConnectedState {
+function mapStateToProps(state: any): IConnectedState {
 	return {
-        allItems_LS: state.projectsReducer.items,
-        AddItem_LS: state.projectsReducer.item,
+        allAnimals_LS: state.projectsReducer.animals
 	};
 }
 
 //Map the actions to the properties of the Component.
 const mapDispatchToProps = (dispatch: any): IConnectedDispatch => ({
-	GetAllItems_LS: () => {
-		dispatch(getAllItems());
-    },
-    AddItem_LS: (item: AnimalModel) => {
-		dispatch(addItem(item));
-	}
+	GetAllAnimals_LS: () => {
+		dispatch(getAllAnimals());
+    }
 });
 
 class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDispatch, IBoardState> {
@@ -52,7 +47,7 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         super(props);
 
         this.state = {
-            allItems: []
+            allAnimals: []
         }
 
     };    
@@ -60,40 +55,34 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
     public static getDerivedStateFromProps(nextProps: IBoardProps & IConnectedState, prevState: IBoardState) {
  
-        if (nextProps.allItems_LS != prevState.allItems) {
-            return { allItems: nextProps.allItems_LS }
+        if (nextProps.allAnimals_LS != prevState.allAnimals) {
+            return { allAnimals: nextProps.allAnimals_LS }
         }
     }
          
 
     public componentDidUpdate(prevProps: IBoardProps & IConnectedState, prevState:IBoardState) {
          
-        if (prevProps.allItems_LS != prevState.allItems) {
-            this.setState({allItems: prevProps.allItems_LS})
+        if (prevProps.allAnimals_LS != prevState.allAnimals) {
+            this.setState({allAnimals: prevProps.allAnimals_LS})
         }
     }
 
 
     public componentDidMount() {
-        this.props.GetAllItems_LS();
+        this.props.GetAllAnimals_LS();
     }
 
 
     private showItems(): JSX.Element {
 
-        let arrayAuxItem = this.state.allItems;
+        let arrayAuxallAnimals = this.state.allAnimals;
 
-        let arrayItem = arrayAuxItem.map((item: AnimalModel, index)=>{
+        let arrayAnimals = arrayAuxallAnimals.map((item: AnimalModel, index)=>{
             return  <Item Item={item}/>
         });
 
-        return (<div>{arrayItem}</div>)
-    }
-
-
-    private AddItem() {
-        let animal = new AnimalModel();
-        this.props.AddItem_LS(animal);
+        return (<div>{arrayAnimals}</div>)
     }
 
 
@@ -102,7 +91,8 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         return (
                 <div>
                     {this.showItems()}
-                    <button onClick={()=>this.AddItem()}>new animal</button>
+                    <button>Create a new animal</button>
+                    <FormNewAnimal/>
                 </div>
         )
     }
