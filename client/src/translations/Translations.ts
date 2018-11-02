@@ -1,11 +1,43 @@
 
+export enum translationsEnum {
+
+  PLACEHOLDER_NAME = "PLACEHOLDER_NAME",
+  PLACEHOLDER_URLPHOTO = "PLACEHOLDER_URLPHOTO",
+  PLACEHOLDER_KINGDOM = "PLACEHOLDER_KINGDOM",
+  PLACEHOLDER_CLASS = "PLACEHOLDER_CLASS",
+  PLACEHOLDER_CONSERVATION_STATUS = "PLACEHOLDER_CONSERVATION_STATUS",
+  PLACEHOLDER_REGION = "PLACEHOLDER_REGION",
+  PLACEHOLDER_SHORT_INFO = "PLACEHOLDER_SHORT_INFO",
+  PLACEHOLDER_LONG_INFO = "PLACEHOLDER_LONG_INFO",
+  SUCCESS_MSG = "SUCCESS_MSG",
+  ERROR_MSG = "ERROR_MSG",
+
+}
+
+
 export const translations = {
     'en': {
-      "SUCCESS_MSG":"success",
-      "ERROR_MSG":"error"
+      "PLACEHOLDER_NAME":"Name",
+      "PLACEHOLDER_URLPHOTO":"Url photo",
+      "PLACEHOLDER_KINGDOM":"Kingdom",
+      "PLACEHOLDER_CLASS":"Class",
+      "PLACEHOLDER_CONSERVATION_STATUS":"Conservation status",
+      "PLACEHOLDER_REGION":"Region",
+      "PLACEHOLDER_SHORT_INFO":"Short info",
+      "PLACEHOLDER_LONG_INFO":"Long info",
+      "SUCCESS_MSG":"Success",
+      "ERROR_MSG":"Error"
     },
     'es': {
-      "SUCCESS_MSG":"success",
-      "ERROR_MSG":"error"
+      "PLACEHOLDER_NAME":"Nombre",
+      "PLACEHOLDER_URLPHOTO":"Url foto",
+      "PLACEHOLDER_KINGDOM":"Reino",
+      "PLACEHOLDER_CLASS":"Clase",
+      "PLACEHOLDER_CONSERVATION_STATUS":"Estado de conservación",
+      "PLACEHOLDER_REGION":"Región",
+      "PLACEHOLDER_SHORT_INFO":"Info corta",
+      "PLACEHOLDER_LONG_INFO":"Info larga",
+      "SUCCESS_MSG":"Exito",
+      "ERROR_MSG":"Error"
     },
   }

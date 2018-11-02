@@ -9,6 +9,7 @@ export const initialState: IGeneralState = {
     
     animal: new AnimalModel(),
     animals: [],
+    openFormAddNewAnimal: false,
     
     errorData: '',
     successData: '',
@@ -22,6 +23,7 @@ export class GeneralState extends Immutable.Record(initialState) implements IGen
     //Getters
     public readonly animal: AnimalModel;
     public readonly animals: Array<AnimalModel>;
+    public readonly openFormAddNewAnimal: boolean;
 
     public readonly errorData: string;
     public readonly successData: string;
@@ -41,6 +43,11 @@ export class GeneralState extends Immutable.Record(initialState) implements IGen
     }
 
     // Project METHODS 
+
+    public setOpenFormAddNewAnimal(openFormAddNewAnimal: boolean): GeneralState {
+        return this.set("openFormAddNewAnimal", openFormAddNewAnimal) as GeneralState;
+    }
+
     public getAllAnimals(animals: Array<AnimalModel>): GeneralState {
         return this.set("animals", animals) as GeneralState;
     }

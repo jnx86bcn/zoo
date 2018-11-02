@@ -25,7 +25,7 @@ export class Item extends React.Component<IItemProps, IItemState> {
                 <div>
                    <label>{this.props.animal.Name.value}</label>
                    <picture>
-                    <img src={this.props.animal.UrlPhoto.value}/>
+                        <img src={this.props.animal.UrlPhoto.value}/>
                    </picture>
                    <label>{this.props.animal.Kingdom.value}</label>
                    <label>{this.props.animal.ConservationStatus.value}</label>

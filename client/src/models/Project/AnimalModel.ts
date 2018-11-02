@@ -1,4 +1,4 @@
-import { IFormFieldBoolean, IFormFieldString } from '../Base';
+import { IFormFieldBoolean, IFormFieldString, IFormFieldNumber } from '../Base';
 import {IMongoAnimal} from './IMongoAnimal';
 
 export class AnimalModel {
@@ -10,11 +10,12 @@ export class AnimalModel {
     Class: IFormFieldString;
     ConservationStatus: IFormFieldString;
     Region: IFormFieldString;
-    Extinct: IFormFieldBoolean;
+    Favorite: IFormFieldBoolean;
     ShortInfo: IFormFieldString;
     LongInfo: IFormFieldString;
     Birth: IFormFieldString;
     Death: IFormFieldString;
+    Likes: IFormFieldNumber;
 
 
     constructor() {
@@ -24,11 +25,12 @@ export class AnimalModel {
         this.Class = new IFormFieldString('Class');
         this.ConservationStatus = new IFormFieldString('ConservationStatus');
         this.Region = new IFormFieldString('Region');
-        this.Extinct = new IFormFieldBoolean('Extinct');
+        this.Favorite = new IFormFieldBoolean('Favorite');
         this.ShortInfo = new IFormFieldString('ShortInfo');
         this.LongInfo = new IFormFieldString('LongInfo');
         this.Birth = new IFormFieldString('Birth');
         this.Death = new IFormFieldString('Death');
+        this.Likes = new IFormFieldNumber('Likes');
     }
 
 
@@ -41,9 +43,10 @@ export class AnimalModel {
             Class: this.Class.value != '' ? this.Class.value : '',
             ConservationStatus: this.ConservationStatus.value != '' ? this.ConservationStatus.value : '',
             Region: this.Region.value != '' ? this.Region.value : '',
-            Extinct: this.Extinct.value,
+            Favorite: this.Favorite.value,
             ShortInfo: this.ShortInfo.value != '' ? this.ShortInfo.value : '',
-            LongInfo: this.LongInfo.value != '' ? this.LongInfo.value : ''
+            LongInfo: this.LongInfo.value != '' ? this.LongInfo.value : '',
+            Likes: this.Likes.value != undefined ? this.Likes.value : 0,
         };
 
         return newAnimal;
@@ -59,9 +62,10 @@ export class AnimalModel {
         animal.Kingdom.value = mongoModel.Kingdom != "" ? mongoModel.Kingdom : "";
         animal.Region.value = mongoModel.Region != "" ? mongoModel.Region : "";
         animal.ConservationStatus.value = mongoModel.ConservationStatus != "" ? mongoModel.ConservationStatus : "";
-        animal.Extinct.value = mongoModel.Extinct ;
+        animal.Favorite.value = mongoModel.Favorite ;
         animal.ShortInfo.value = mongoModel.ShortInfo != "" ? mongoModel.ShortInfo : "";
         animal.LongInfo.value = mongoModel.LongInfo != "" ? mongoModel.LongInfo : "";
+        animal.Likes.value = mongoModel.Likes != undefined ? mongoModel.Likes : 0;
 
         return animal;
     }

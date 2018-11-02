@@ -5,7 +5,8 @@ export interface IMongoAnimal {
     Kingdom: string;
     Region: string;
     ConservationStatus: string;
-    Extinct: boolean;
+    Favorite: boolean;
     ShortInfo: string;
     LongInfo: string;
+    Likes: number;
 }

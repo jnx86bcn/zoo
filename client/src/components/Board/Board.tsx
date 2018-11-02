@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { getAllAnimals } from '../../redux/actions';
+import { getAllAnimals, setOpenFormAddNewAnimal } from '../../redux/actions';
 
 import PropTypes from 'prop-types';
 
@@ -15,23 +15,29 @@ import  FormNewAnimal from '../_FormNewAnimal/FormNewAnimal';
 
 interface IConnectedDispatch {
     GetAllAnimals_LS: () => void;
+    OpenFromAddNewAnimal_LS:(open: boolean) => void;
 }
 
 interface IConnectedState {
     allAnimals_LS: Array<AnimalModel>;
+    openFromAddNewAnimal_LS: boolean;
 }
 
 function mapStateToProps(state: any): IConnectedState {
 	return {
-        allAnimals_LS: state.projectsReducer.animals
-	};
+        allAnimals_LS: state.projectsReducer.animals,
+        openFromAddNewAnimal_LS: state.projectsReducer.openFormAddNewAnimal,
+	}
 }
 
 //Map the actions to the properties of the Component.
 const mapDispatchToProps = (dispatch: any): IConnectedDispatch => ({
 	GetAllAnimals_LS: () => {
 		dispatch(getAllAnimals());
-    }
+    },
+    OpenFromAddNewAnimal_LS: (openFormAddNewAnimal: boolean) => {
+		dispatch(setOpenFormAddNewAnimal(openFormAddNewAnimal));
+	}
 });
 
 class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDispatch, IBoardState> {
@@ -47,7 +53,8 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         super(props);
 
         this.state = {
-            allAnimals: []
+            allAnimals: [],
+            openForm: false
         }
 
     };    
@@ -58,6 +65,11 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         if (nextProps.allAnimals_LS != prevState.allAnimals) {
             return { allAnimals: nextProps.allAnimals_LS }
         }
+
+        if(nextProps.openFromAddNewAnimal_LS != prevState.openForm) {
+            return { openForm: nextProps.openFromAddNewAnimal_LS }
+        }
+
     }
          
 
@@ -66,6 +78,11 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         if (prevProps.allAnimals_LS != prevState.allAnimals) {
             this.setState({allAnimals: prevProps.allAnimals_LS})
         }
+
+        if (prevProps.openFromAddNewAnimal_LS != prevState.openForm) {
+            this.setState({openForm: prevProps.openFromAddNewAnimal_LS})
+        }
+
     }
 
 
@@ -92,9 +109,15 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
         return (
                 <div>
+                    <button onClick = {()=> this.props.OpenFromAddNewAnimal_LS(true)} >Create a new animal</button>
                     {this.showItems()}
-                    <button>Create a new animal</button>
-                    <FormNewAnimal/>
+                    {this.state.openForm == true ?
+                    <div>
+                        <FormNewAnimal/>
+                    </div>
+                    :
+                    null
+                    }
                 </div>
         )
     }

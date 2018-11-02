@@ -8386,20 +8386,25 @@ __webpack_require__.r(__webpack_exports__);
 
 function mapStateToProps(state) {
     return {
-        allAnimals_LS: state.projectsReducer.animals
+        allAnimals_LS: state.projectsReducer.animals,
+        openFromAddNewAnimal_LS: state.projectsReducer.openFormAddNewAnimal,
     };
 }
 //Map the actions to the properties of the Component.
 const mapDispatchToProps = (dispatch) => ({
     GetAllAnimals_LS: () => {
         dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["getAllAnimals"])());
+    },
+    OpenFromAddNewAnimal_LS: (openFormAddNewAnimal) => {
+        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["setOpenFormAddNewAnimal"])(openFormAddNewAnimal));
     }
 });
 class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allAnimals: []
+            allAnimals: [],
+            openForm: false
         };
     }
     ;
@@ -8407,10 +8412,16 @@ class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
         if (nextProps.allAnimals_LS != prevState.allAnimals) {
             return { allAnimals: nextProps.allAnimals_LS };
         }
+        if (nextProps.openFromAddNewAnimal_LS != prevState.openForm) {
+            return { openForm: nextProps.openFromAddNewAnimal_LS };
+        }
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.allAnimals_LS != prevState.allAnimals) {
             this.setState({ allAnimals: prevProps.allAnimals_LS });
+        }
+        if (prevProps.openFromAddNewAnimal_LS != prevState.openForm) {
+            this.setState({ openForm: prevProps.openFromAddNewAnimal_LS });
         }
     }
     componentDidMount() {
@@ -8427,9 +8438,13 @@ class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: () => this.props.OpenFromAddNewAnimal_LS(true) }, "Create a new animal"),
             this.showItems(),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Create a new animal"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_6__["default"], null)));
+            this.state.openForm == true ?
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_6__["default"], null))
+                :
+                    null));
     }
 }
 //Add ContextTypes
@@ -8514,11 +8529,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/store/store */ "./src/redux/store/store.ts");
-/* harmony import */ var _Board_Board__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Board/Board */ "./src/components/Board/Board.tsx");
+/* harmony import */ var redux_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux-i18n */ "./node_modules/redux-i18n/dist/index.js");
+/* harmony import */ var redux_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(redux_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _translations_Translations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../translations/Translations */ "./src/translations/Translations.ts");
+/* harmony import */ var _Board_Board__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Board/Board */ "./src/components/Board/Board.tsx");
 
 
 
-//Props and State for Compoent
+//i18n
+
+
+
 //Components
 
 const store = Object(_redux_store_store__WEBPACK_IMPORTED_MODULE_2__["default"])();
@@ -8526,9 +8547,14 @@ class Main extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount() {
+        store.dispatch(Object(redux_i18n__WEBPACK_IMPORTED_MODULE_3__["setLanguage"])("en"));
+        store.dispatch(Object(redux_i18n__WEBPACK_IMPORTED_MODULE_3__["setTranslations"])(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translations"]));
+    }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_1__["Provider"], { store: store },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Board_Board__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(redux_i18n__WEBPACK_IMPORTED_MODULE_3___default.a, { translations: _translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translations"], useReducer: true },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Board_Board__WEBPACK_IMPORTED_MODULE_5__["default"], null))));
     }
 }
 
@@ -8567,7 +8593,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/actions */ "./src/redux/actions/index.ts");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../models */ "./src/models/index.ts");
+/* harmony import */ var _translations_Translations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../translations/Translations */ "./src/translations/Translations.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../models */ "./src/models/index.ts");
+
 
 
 
@@ -8575,23 +8603,38 @@ __webpack_require__.r(__webpack_exports__);
 
 function mapStateToProps(state) {
     return {
-        AddItem_LS: state.projectsReducer.animal
+        AddItem_LS: state.projectsReducer.animal,
+        openFromAddNewAnimal_LS: state.projectsReducer.openFromAddNewAnimal,
     };
 }
 //Map the actions to the properties of the Component.
 const mapDispatchToProps = (dispatch) => ({
     AddItem_LS: (animal) => {
         dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["addNewAnimal"])(animal));
+    },
+    openFromAddNewAnimal_LS: (open) => {
+        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["setOpenFormAddNewAnimal"])(open));
     }
 });
 class FormNewAnimal extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
         super(props);
         this.state = {
-            animal: new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]()
+            animal: new _models__WEBPACK_IMPORTED_MODULE_5__["AnimalModel"](),
+            openFromAddNewAnimal: false
         };
     }
     ;
+    // public static getDerivedStateFromProps(nextProps: INewFormAnimalProps & IConnectedState, prevState: INewFormAnimalState) {
+    //     if (nextProps.openFromAddNewAnimal_LS != prevState.openFromAddNewAnimal) {
+    //         return { openFromAddNewAnimal: nextProps.openFromAddNewAnimal_LS }
+    //     }
+    // }
+    // public componentDidUpdate(prevProps: INewFormAnimalProps & IConnectedState, prevState:INewFormAnimalState) {
+    //     if (prevProps.openFromAddNewAnimal_LS != prevState.openFromAddNewAnimal) {
+    //         this.setState({openFromAddNewAnimal: prevProps.openFromAddNewAnimal_LS})
+    //     }
+    // }
     OnChangeField(fieldName, target) {
         let auxModel = this.state.animal;
         auxModel[fieldName].value = target.value;
@@ -8601,26 +8644,27 @@ class FormNewAnimal extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compone
     }
     AddNewAnimal(animal) {
         this.props.AddItem_LS(animal);
-        this.setState({ animal: new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]() });
+        this.props.openFromAddNewAnimal_LS(false);
+        this.setState({ animal: new _models__WEBPACK_IMPORTED_MODULE_5__["AnimalModel"]() });
     }
     render() {
         return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Animal name"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Name", event.target), placeholder: "Name", value: this.state.animal.Name.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Name", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_NAME), value: this.state.animal.Name.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Link photo animal"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("UrlPhoto", event.target), placeholder: "UrlPhoto", value: this.state.animal.UrlPhoto.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("UrlPhoto", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_URLPHOTO), value: this.state.animal.UrlPhoto.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Kingdom"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Kingdom", event.target), placeholder: "Kingdom", value: this.state.animal.Kingdom.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Kingdom", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_KINGDOM), value: this.state.animal.Kingdom.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Class"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Class", event.target), placeholder: "Class", value: this.state.animal.Class.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Class", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_CLASS), value: this.state.animal.Class.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Conservation status"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("ConservationStatus", event.target), placeholder: "Conservation status", value: this.state.animal.ConservationStatus.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("ConservationStatus", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_CONSERVATION_STATUS), value: this.state.animal.ConservationStatus.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Region"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Region", event.target), placeholder: "Region", value: this.state.animal.Region.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Region", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_REGION), value: this.state.animal.Region.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Short info"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { placeholder: "ShortInfo", onChange: () => this.OnChangeField("ShortInfo", event.target), value: this.state.animal.ShortInfo.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { onChange: () => this.OnChangeField("ShortInfo", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_SHORT_INFO), value: this.state.animal.ShortInfo.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Long info"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { placeholder: "LongInfo", onChange: () => this.OnChangeField("LongInfo", event.target), value: this.state.animal.LongInfo.value }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { onChange: () => this.OnChangeField("LongInfo", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_LONG_INFO), value: this.state.animal.LongInfo.value }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: () => this.AddNewAnimal(this.state.animal) }, "Add animal")));
     }
 }
@@ -8658,7 +8702,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-/*! exports provided: renderComponent, Services, translations, Main, Item, IFormField, IFormFieldBoolean, IFormFieldDate, IFormFieldNumber, IFormFieldString, AnimalModel, ZooModel */
+/*! exports provided: renderComponent, Services, translationsEnum, translations, Main, Item, IFormField, IFormFieldBoolean, IFormFieldDate, IFormFieldNumber, IFormFieldString, AnimalModel */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8684,12 +8728,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnimalModel", function() { return _models__WEBPACK_IMPORTED_MODULE_2__["AnimalModel"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ZooModel", function() { return _models__WEBPACK_IMPORTED_MODULE_2__["ZooModel"]; });
-
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services */ "./src/services/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Services", function() { return _services__WEBPACK_IMPORTED_MODULE_3__["Services"]; });
 
 /* harmony import */ var _translations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./translations */ "./src/translations/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "translationsEnum", function() { return _translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "translations", function() { return _translations__WEBPACK_IMPORTED_MODULE_4__["translations"]; });
 
 
@@ -8874,11 +8918,12 @@ class AnimalModel {
         this.Class = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Class');
         this.ConservationStatus = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('ConservationStatus');
         this.Region = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Region');
-        this.Extinct = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldBoolean"]('Extinct');
+        this.Favorite = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldBoolean"]('Favorite');
         this.ShortInfo = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('ShortInfo');
         this.LongInfo = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('LongInfo');
         this.Birth = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Birth');
         this.Death = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldString"]('Death');
+        this.Likes = new _Base__WEBPACK_IMPORTED_MODULE_0__["IFormFieldNumber"]('Likes');
     }
     toMongoDB() {
         let newAnimal = {
@@ -8888,9 +8933,10 @@ class AnimalModel {
             Class: this.Class.value != '' ? this.Class.value : '',
             ConservationStatus: this.ConservationStatus.value != '' ? this.ConservationStatus.value : '',
             Region: this.Region.value != '' ? this.Region.value : '',
-            Extinct: this.Extinct.value,
+            Favorite: this.Favorite.value,
             ShortInfo: this.ShortInfo.value != '' ? this.ShortInfo.value : '',
-            LongInfo: this.LongInfo.value != '' ? this.LongInfo.value : ''
+            LongInfo: this.LongInfo.value != '' ? this.LongInfo.value : '',
+            Likes: this.Likes.value != undefined ? this.Likes.value : 0,
         };
         return newAnimal;
     }
@@ -8902,31 +8948,11 @@ class AnimalModel {
         animal.Kingdom.value = mongoModel.Kingdom != "" ? mongoModel.Kingdom : "";
         animal.Region.value = mongoModel.Region != "" ? mongoModel.Region : "";
         animal.ConservationStatus.value = mongoModel.ConservationStatus != "" ? mongoModel.ConservationStatus : "";
-        animal.Extinct.value = mongoModel.Extinct;
+        animal.Favorite.value = mongoModel.Favorite;
         animal.ShortInfo.value = mongoModel.ShortInfo != "" ? mongoModel.ShortInfo : "";
         animal.LongInfo.value = mongoModel.LongInfo != "" ? mongoModel.LongInfo : "";
+        animal.Likes.value = mongoModel.Likes != undefined ? mongoModel.Likes : 0;
         return animal;
-    }
-}
-
-
-/***/ }),
-
-/***/ "./src/models/Project/ZooModel.ts":
-/*!****************************************!*\
-  !*** ./src/models/Project/ZooModel.ts ***!
-  \****************************************/
-/*! exports provided: ZooModel */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZooModel", function() { return ZooModel; });
-/* harmony import */ var _AnimalModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AnimalModel */ "./src/models/Project/AnimalModel.ts");
-
-class ZooModel extends _AnimalModel__WEBPACK_IMPORTED_MODULE_0__["AnimalModel"] {
-    constructor() {
-        super();
     }
 }
 
@@ -8937,17 +8963,13 @@ class ZooModel extends _AnimalModel__WEBPACK_IMPORTED_MODULE_0__["AnimalModel"] 
 /*!*************************************!*\
   !*** ./src/models/Project/index.ts ***!
   \*************************************/
-/*! exports provided: AnimalModel, ZooModel */
+/*! exports provided: AnimalModel */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AnimalModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AnimalModel */ "./src/models/Project/AnimalModel.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnimalModel", function() { return _AnimalModel__WEBPACK_IMPORTED_MODULE_0__["AnimalModel"]; });
-
-/* harmony import */ var _ZooModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ZooModel */ "./src/models/Project/ZooModel.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ZooModel", function() { return _ZooModel__WEBPACK_IMPORTED_MODULE_1__["ZooModel"]; });
-
 
 
 
@@ -8958,7 +8980,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************!*\
   !*** ./src/models/index.ts ***!
   \*****************************/
-/*! exports provided: IFormField, IFormFieldBoolean, IFormFieldDate, IFormFieldNumber, IFormFieldString, AnimalModel, ZooModel */
+/*! exports provided: IFormField, IFormFieldBoolean, IFormFieldDate, IFormFieldNumber, IFormFieldString, AnimalModel */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8977,8 +8999,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Project */ "./src/models/Project/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AnimalModel", function() { return _Project__WEBPACK_IMPORTED_MODULE_1__["AnimalModel"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ZooModel", function() { return _Project__WEBPACK_IMPORTED_MODULE_1__["ZooModel"]; });
-
 
 
 
@@ -8989,12 +9009,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************!*\
   !*** ./src/redux/actions/Actions.ts ***!
   \**************************************/
-/*! exports provided: getAllAnimals, addNewAnimal */
+/*! exports provided: getAllAnimals, setOpenFormAddNewAnimal, addNewAnimal */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAllAnimals", function() { return getAllAnimals; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setOpenFormAddNewAnimal", function() { return setOpenFormAddNewAnimal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewAnimal", function() { return addNewAnimal; });
 /* harmony import */ var _actionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actionTypes */ "./src/redux/actions/actionTypes.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services */ "./src/services/index.ts");
@@ -9025,7 +9046,7 @@ const getAllAnimals_Error = (error) => ({
     payload: error.message
 });
 /**
- * Get all projects in list
+ * Get all animals from MongoDB
  * @param listName projects
  */
 function getAllAnimals() {
@@ -9048,6 +9069,10 @@ function getAllAnimals() {
         });
     });
 }
+const setOpenFormAddNewAnimal = (value) => ({
+    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].SET_OPEN_FORM_ADD_NEW_ANIMAL,
+    payload: value
+});
 const addNewAnimal_Request = () => ({
     type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ActionTypes"].ADD_NEW_ANIMAL_REQUEST
 });
@@ -9095,6 +9120,7 @@ var ActionTypes;
     ActionTypes["SET_ERROR"] = "SET_ERROR";
     ActionTypes["SET_SUCCESS"] = "SET_SUCCESS";
     ActionTypes["SET_INPROCESS"] = "SET_INPROCESS";
+    ActionTypes["SET_OPEN_FORM_ADD_NEW_ANIMAL"] = "SET_OPEN_FORM_ADD_NEW_ANIMAL";
     ActionTypes["ADD_NEW_ANIMAL_REQUEST"] = "ADD_NEW_ANIMAL_REQUEST";
     ActionTypes["ADD_NEW_ANIMAL_SUCCESS"] = "ADD_NEW_ANIMAL_SUCCESS";
     ActionTypes["ADD_NEW_ANIMAL_ERROR"] = "ADD_NEW_ANIMAL_ERROR";
@@ -9110,13 +9136,15 @@ var ActionTypes;
 /*!************************************!*\
   !*** ./src/redux/actions/index.ts ***!
   \************************************/
-/*! exports provided: getAllAnimals, addNewAnimal, ActionTypes */
+/*! exports provided: getAllAnimals, setOpenFormAddNewAnimal, addNewAnimal, ActionTypes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Actions */ "./src/redux/actions/Actions.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getAllAnimals", function() { return _Actions__WEBPACK_IMPORTED_MODULE_0__["getAllAnimals"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setOpenFormAddNewAnimal", function() { return _Actions__WEBPACK_IMPORTED_MODULE_0__["setOpenFormAddNewAnimal"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "addNewAnimal", function() { return _Actions__WEBPACK_IMPORTED_MODULE_0__["addNewAnimal"]; });
 
@@ -9191,6 +9219,8 @@ const projectsReducer = (state = initState, action) => {
             return state.getAllAnimals(action.payload);
         case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].GET_ALL_ANIMALS_ERROR:
             return state;
+        case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].SET_OPEN_FORM_ADD_NEW_ANIMAL:
+            return state.setOpenFormAddNewAnimal(action.payload);
         case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].ADD_NEW_ANIMAL_REQUEST:
             return state;
         case _actions__WEBPACK_IMPORTED_MODULE_1__["ActionTypes"].ADD_NEW_ANIMAL_SUCCESS:
@@ -9306,6 +9336,7 @@ __webpack_require__.r(__webpack_exports__);
 const initialState = {
     animal: new _models__WEBPACK_IMPORTED_MODULE_1__["AnimalModel"](),
     animals: [],
+    openFormAddNewAnimal: false,
     errorData: '',
     successData: '',
     inProcess: false,
@@ -9323,6 +9354,9 @@ class GeneralState extends immutable__WEBPACK_IMPORTED_MODULE_0__["Record"](init
         return this.set("inProcess", inProcess);
     }
     // Project METHODS 
+    setOpenFormAddNewAnimal(openFormAddNewAnimal) {
+        return this.set("openFormAddNewAnimal", openFormAddNewAnimal);
+    }
     getAllAnimals(animals) {
         return this.set("animals", animals);
     }
@@ -9459,20 +9493,50 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************!*\
   !*** ./src/translations/Translations.ts ***!
   \******************************************/
-/*! exports provided: translations */
+/*! exports provided: translationsEnum, translations */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "translationsEnum", function() { return translationsEnum; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "translations", function() { return translations; });
+var translationsEnum;
+(function (translationsEnum) {
+    translationsEnum["PLACEHOLDER_NAME"] = "PLACEHOLDER_NAME";
+    translationsEnum["PLACEHOLDER_URLPHOTO"] = "PLACEHOLDER_URLPHOTO";
+    translationsEnum["PLACEHOLDER_KINGDOM"] = "PLACEHOLDER_KINGDOM";
+    translationsEnum["PLACEHOLDER_CLASS"] = "PLACEHOLDER_CLASS";
+    translationsEnum["PLACEHOLDER_CONSERVATION_STATUS"] = "PLACEHOLDER_CONSERVATION_STATUS";
+    translationsEnum["PLACEHOLDER_REGION"] = "PLACEHOLDER_REGION";
+    translationsEnum["PLACEHOLDER_SHORT_INFO"] = "PLACEHOLDER_SHORT_INFO";
+    translationsEnum["PLACEHOLDER_LONG_INFO"] = "PLACEHOLDER_LONG_INFO";
+    translationsEnum["SUCCESS_MSG"] = "SUCCESS_MSG";
+    translationsEnum["ERROR_MSG"] = "ERROR_MSG";
+})(translationsEnum || (translationsEnum = {}));
 const translations = {
     'en': {
-        "SUCCESS_MSG": "success",
-        "ERROR_MSG": "error"
+        "PLACEHOLDER_NAME": "Name",
+        "PLACEHOLDER_URLPHOTO": "Url photo",
+        "PLACEHOLDER_KINGDOM": "Kingdom",
+        "PLACEHOLDER_CLASS": "Class",
+        "PLACEHOLDER_CONSERVATION_STATUS": "Conservation status",
+        "PLACEHOLDER_REGION": "Region",
+        "PLACEHOLDER_SHORT_INFO": "Short info",
+        "PLACEHOLDER_LONG_INFO": "Long info",
+        "SUCCESS_MSG": "Success",
+        "ERROR_MSG": "Error"
     },
     'es': {
-        "SUCCESS_MSG": "success",
-        "ERROR_MSG": "error"
+        "PLACEHOLDER_NAME": "Nombre",
+        "PLACEHOLDER_URLPHOTO": "Url foto",
+        "PLACEHOLDER_KINGDOM": "Reino",
+        "PLACEHOLDER_CLASS": "Clase",
+        "PLACEHOLDER_CONSERVATION_STATUS": "Estado de conservación",
+        "PLACEHOLDER_REGION": "Región",
+        "PLACEHOLDER_SHORT_INFO": "Info corta",
+        "PLACEHOLDER_LONG_INFO": "Info larga",
+        "SUCCESS_MSG": "Exito",
+        "ERROR_MSG": "Error"
     },
 };
 
@@ -9483,12 +9547,14 @@ const translations = {
 /*!***********************************!*\
   !*** ./src/translations/index.ts ***!
   \***********************************/
-/*! exports provided: translations */
+/*! exports provided: translationsEnum, translations */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Translations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Translations */ "./src/translations/Translations.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "translationsEnum", function() { return _Translations__WEBPACK_IMPORTED_MODULE_0__["translationsEnum"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "translations", function() { return _Translations__WEBPACK_IMPORTED_MODULE_0__["translations"]; });
 
 

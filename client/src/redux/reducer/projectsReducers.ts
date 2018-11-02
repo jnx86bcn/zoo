@@ -14,6 +14,8 @@ export const projectsReducer: Reducer<GeneralState> = (state: GeneralState = ini
             return state.getAllAnimals(action.payload);
         case ActionTypes.GET_ALL_ANIMALS_ERROR:
             return state;
+        case ActionTypes.SET_OPEN_FORM_ADD_NEW_ANIMAL:
+            return state.setOpenFormAddNewAnimal(action.payload);
         case ActionTypes.ADD_NEW_ANIMAL_REQUEST:
             return state;
         case ActionTypes.ADD_NEW_ANIMAL_SUCCESS:

@@ -1,12 +1,7 @@
-
 import { ActionTypes, Action } from './actionTypes';
-
 import { AnimalModel } from '../../models';
-
 import { Services } from '../../services';
-
 import { setErrorMessage, setSuccessMessage, setInProcess } from './successActions';
-
 
 /**
  * Actions to GET all items
@@ -25,7 +20,7 @@ const getAllAnimals_Error = (error: Error): Action => ({
 
 
 /**
- * Get all projects in list
+ * Get all animals from MongoDB
  * @param listName projects
  */
 export function getAllAnimals() {
@@ -53,6 +48,10 @@ export function getAllAnimals() {
     }
 }
 
+export const setOpenFormAddNewAnimal = (value: boolean): Action => ({
+    type: ActionTypes.SET_OPEN_FORM_ADD_NEW_ANIMAL,
+    payload: value
+});
 
 const addNewAnimal_Request = (): Action => ({
     type: ActionTypes.ADD_NEW_ANIMAL_REQUEST

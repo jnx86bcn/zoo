@@ -2,7 +2,10 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import configureStore from '../../redux/store/store'
 
-//Props and State for Compoent
+//i18n
+import I18n from 'redux-i18n'
+import { translations } from '../../translations/Translations'
+import { setLanguage, setTranslations } from 'redux-i18n'
 
 //Components
 import Board from '../Board/Board';
@@ -18,10 +21,17 @@ export class Main extends React.Component<{}, {}> {
     }
 
 
+    public componentDidMount() {
+        store.dispatch(setLanguage("en"));
+        store.dispatch(setTranslations(translations));
+    }
+
     public render() {
         return (
             <Provider store={store} >
-                <Board/>
+                <I18n translations={translations} useReducer={true}>
+                    <Board/>
+                </I18n>
             </Provider>
         )
     }
