@@ -53,23 +53,7 @@ class FormNewAnimal extends React.Component<INewFormAnimalProps & IConnectedStat
         }
     };
 
-
-    // public static getDerivedStateFromProps(nextProps: INewFormAnimalProps & IConnectedState, prevState: INewFormAnimalState) {
- 
-    //     if (nextProps.openFromAddNewAnimal_LS != prevState.openFromAddNewAnimal) {
-    //         return { openFromAddNewAnimal: nextProps.openFromAddNewAnimal_LS }
-    //     }
-    // }
-         
-
-    // public componentDidUpdate(prevProps: INewFormAnimalProps & IConnectedState, prevState:INewFormAnimalState) {
-         
-    //     if (prevProps.openFromAddNewAnimal_LS != prevState.openFromAddNewAnimal) {
-    //         this.setState({openFromAddNewAnimal: prevProps.openFromAddNewAnimal_LS})
-    //     }
-    // }
-
-
+    
     private OnChangeField(fieldName:string,target: any) {
         let auxModel =this.state.animal;
         auxModel[fieldName].value = target.value;

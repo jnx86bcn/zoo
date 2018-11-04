@@ -1,5 +1,5 @@
 import { AnimalModel } from "../../models";
 
-export interface IItemProps {
+export interface ICardProps {
     animal: AnimalModel
 }

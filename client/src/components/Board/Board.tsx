@@ -9,8 +9,10 @@ import { IBoardProps,IBoardState } from '.';
 
 import { AnimalModel } from '../../models';
 
-import { Item } from '../Item/Item';
+import { Card } from '../Card/Card';
 import  FormNewAnimal from '../_FormNewAnimal/FormNewAnimal';
+
+import '../../../branding/styles/main';
 
 
 interface IConnectedDispatch {
@@ -98,23 +100,21 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         let arrayAnimals = arrayAuxallAnimals.map((animalDB: any)=>{
             let animal: AnimalModel = new AnimalModel();
             animal = animal.fromMongoDB(animalDB);
-            return  <Item animal={animal}/>
+            return  <Card animal={animal}/>
         });
 
-        return (<div>{arrayAnimals}</div>)
+        return (<div className = "Board_Mosaic">{arrayAnimals}</div>)
     }
 
 
     public render() {
 
         return (
-                <div>
-                    <button onClick = {()=> this.props.OpenFromAddNewAnimal_LS(true)} >Create a new animal</button>
+                <div className = "Board">
+                    <button className = "Board_btn_AddAnimal" onClick = {()=> this.props.OpenFromAddNewAnimal_LS(true)} >Create a new animal</button>
                     {this.showItems()}
                     {this.state.openForm == true ?
-                    <div>
-                        <FormNewAnimal/>
-                    </div>
+                    <FormNewAnimal/>
                     :
                     null
                     }
