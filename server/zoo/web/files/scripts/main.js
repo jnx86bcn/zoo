@@ -143,7 +143,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".Board {\n  box-sizing: border-box;\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n  .Board_btn_AddAnimal {\n    background-color: red; }\n  .Board_Mosaic {\n    display: flex;\n    background-color: blue;\n    width: 100%; }\n", ""]);
+exports.push([module.i, ".Board {\n  box-sizing: border-box;\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n  .Board_btn_AddAnimal {\n    background-color: red; }\n  .Board_Mosaic {\n    display: flex;\n    background-color: blue;\n    width: 100%; }\n\n.Card {\n  flex-grow: 1; }\n", ""]);
 
 // exports
 
@@ -9857,7 +9857,7 @@ const projectsReducer = (state = initState, action) => {
 /*!************************************!*\
   !*** ./src/redux/reducer/index.ts ***!
   \************************************/
-/*! exports provided: successReducer, projectsReducer */
+/*! exports provided: projectsReducer, successReducer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
