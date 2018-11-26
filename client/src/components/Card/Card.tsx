@@ -16,15 +16,35 @@ export class Card extends React.Component<ICardProps, ICardState> {
 
     };    
 
+    
+
     public render() {
 
+        const style = {
+            backgroundImage: "url("+this.props.animal.UrlPhoto.value+")",
+            backgroundSize: "100% 100%"
+        }
+
         return (
-                <div className="Card">
-                   <label>{this.props.animal.Name.value}</label>
-                   <picture>
-                        <img src={this.props.animal.UrlPhoto.value}/>
-                   </picture>
-                   <label>{this.props.animal.ShortInfo.value}</label>
+                <div className="Card shadow_card">
+                   <div className = "Card_header">
+                        <label> {this.props.animal.Name.value} </label>
+                        <picture>
+                            <img src="" alt=""/>
+                        </picture>
+                    </div>
+                    <div style = {style} className = "Card_picture"/>
+                    <div className = "Card_footer">
+                        <div className = "Card_footer_col1">
+                            <p>{this.props.animal.ShortInfo.value}</p>
+                        </div>
+                        <div className = "Card_footer_col2">
+                            <picture>
+                                <img src="" alt=""/>
+                            </picture>
+                            <label>{this.props.animal.Likes.value}</label>
+                        </div>
+                    </div>
                 </div>
         )
     }

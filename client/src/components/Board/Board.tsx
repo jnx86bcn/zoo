@@ -93,7 +93,7 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
     }
 
 
-    private showItems(): JSX.Element {
+    public render() {
 
         let arrayAuxallAnimals = this.state.allAnimals;
 
@@ -103,21 +103,12 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
             return  <Card animal={animal}/>
         });
 
-        return (<div className = "Board_Mosaic">{arrayAnimals}</div>)
-    }
-
-
-    public render() {
-
         return (
-                <div className = "Board">
-                    <button className = "Board_btn_AddAnimal" onClick = {()=> this.props.OpenFromAddNewAnimal_LS(true)} >Create a new animal</button>
-                    {this.showItems()}
-                    {this.state.openForm == true ?
-                    <FormNewAnimal/>
-                    :
-                    null
-                    }
+                <div className = "Board shadow_board">
+                    <div className="Board_btn shadow_btn" />
+                    <div className="Board_grid">
+                        {arrayAnimals}
+                    </div>
                 </div>
         )
     }

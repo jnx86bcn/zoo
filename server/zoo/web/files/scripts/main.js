@@ -143,7 +143,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, ".Board {\n  box-sizing: border-box;\n  display: flex;\n  justify-content: center;\n  align-items: center; }\n  .Board_btn_AddAnimal {\n    background-color: red; }\n  .Board_Mosaic {\n    display: flex;\n    background-color: blue;\n    width: 100%; }\n\n.Card {\n  flex-grow: 1; }\n", ""]);
+exports.push([module.i, "html {\n  box-sizing: border-box; }\n\nhtml, body {\n  width: 100%;\n  height: 100%; }\n\nbody {\n  display: flex;\n  justify-content: center;\n  background-color: white;\n  font-family: sans-serif;\n  margin: 0;\n  padding: 0; }\n\n.shadow_board {\n  -moz-box-shadow: 0px 3px 5px 3px #ccc;\n  -webkit-box-shadow: 0px 3px 5px 3px #ccc;\n  box-shadow: 0px 3px 5px 3px #ccc; }\n\n.shadow_btn {\n  -moz-box-shadow: 0px 3px 5px 3px #ccc;\n  -webkit-box-shadow: 0px 3px 5px 3px #ccc;\n  box-shadow: 0px 3px 5px 3px #ccc; }\n\n.shadow_card {\n  transition: 0.5s;\n  -moz-box-shadow: 0px 3px 5px 3px #ccc;\n  -webkit-box-shadow: 0px 3px 5px 3px #ccc;\n  box-shadow: 0px 3px 5px 3px #ccc; }\n  .shadow_card:hover {\n    cursor: pointer;\n    transform: scale(1.05);\n    background-color: #a6a6a6;\n    box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.3); }\n\n.Board {\n  display: flex;\n  justify-content: center;\n  flex-direction: column-reverse;\n  background-color: #E6F9D4;\n  width: 1660px;\n  max-width: 1660px;\n  margin-top: 20px;\n  padding: 40px; }\n  .Board_btn {\n    background-image: \"cross.png\";\n    margin-left: auto;\n    order: 2;\n    width: 100px;\n    height: 100px;\n    background-color: #61F1DD;\n    margin-top: 10px;\n    margin-bottom: 40px;\n    border-radius: 50%;\n    transition: 0.2s; }\n    .Board_btn:active {\n      transform: scale(0.9);\n      box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.3); }\n    .Board_btn:hover {\n      cursor: pointer;\n      background-color: #4eefd9;\n      box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.3); }\n  .Board_grid {\n    padding-left: 40px;\n    display: flex;\n    align-items: center;\n    flex-wrap: wrap;\n    margin: auto;\n    width: 90%; }\n\n.Card {\n  width: 400px;\n  height: 250px;\n  margin: 40px; }\n  .Card_header {\n    width: 100%;\n    height: 54px;\n    background-color: black; }\n    .Card_header label {\n      color: white;\n      font-size: 36px; }\n  .Card_picture {\n    width: 100%;\n    height: 114px; }\n    .Card_picture img {\n      max-width: 100%;\n      max-height: 100%; }\n  .Card_footer {\n    display: flex;\n    width: 100%;\n    height: 82px;\n    background-color: white; }\n    .Card_footer_col1 {\n      width: 85%; }\n      .Card_footer_col1 p {\n        margin: 0; }\n    .Card_footer_col2 {\n      width: 15%; }\n", ""]);
 
 // exports
 
@@ -9003,10 +9003,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../models */ "./src/models/index.ts");
 /* harmony import */ var _Card_Card__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Card/Card */ "./src/components/Card/Card.tsx");
-/* harmony import */ var _FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../_FormNewAnimal/FormNewAnimal */ "./src/components/_FormNewAnimal/FormNewAnimal.tsx");
-/* harmony import */ var _branding_styles_main__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../branding/styles/main */ "./branding/styles/main.scss");
-/* harmony import */ var _branding_styles_main__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_branding_styles_main__WEBPACK_IMPORTED_MODULE_7__);
-
+/* harmony import */ var _branding_styles_main__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../branding/styles/main */ "./branding/styles/main.scss");
+/* harmony import */ var _branding_styles_main__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_branding_styles_main__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -9057,23 +9055,16 @@ class Board extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     componentDidMount() {
         this.props.GetAllAnimals_LS();
     }
-    showItems() {
+    render() {
         let arrayAuxallAnimals = this.state.allAnimals;
         let arrayAnimals = arrayAuxallAnimals.map((animalDB) => {
             let animal = new _models__WEBPACK_IMPORTED_MODULE_4__["AnimalModel"]();
             animal = animal.fromMongoDB(animalDB);
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Card_Card__WEBPACK_IMPORTED_MODULE_5__["Card"], { animal: animal });
         });
-        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Board_Mosaic" }, arrayAnimals));
-    }
-    render() {
-        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Board" },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: "Board_btn_AddAnimal", onClick: () => this.props.OpenFromAddNewAnimal_LS(true) }, "Create a new animal"),
-            this.showItems(),
-            this.state.openForm == true ?
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FormNewAnimal_FormNewAnimal__WEBPACK_IMPORTED_MODULE_6__["default"], null)
-                :
-                    null));
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Board shadow_board" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Board_btn shadow_btn" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Board_grid" }, arrayAnimals)));
     }
 }
 //Add ContextTypes
@@ -9110,11 +9101,26 @@ class Card extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }
     ;
     render() {
-        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Card" },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.Name.value),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("picture", null,
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { src: this.props.animal.UrlPhoto.value })),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.ShortInfo.value)));
+        const style = {
+            backgroundImage: "url(" + this.props.animal.UrlPhoto.value + ")",
+            backgroundSize: "100% 100%"
+        };
+        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Card shadow_card" },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Card_header" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null,
+                    " ",
+                    this.props.animal.Name.value,
+                    " "),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("picture", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { src: "", alt: "" }))),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { style: style, className: "Card_picture" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Card_footer" },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Card_footer_col1" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.animal.ShortInfo.value)),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: "Card_footer_col2" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("picture", null,
+                        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { src: "", alt: "" })),
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, this.props.animal.Likes.value)))));
     }
 }
 Card.contextTypes = {
@@ -9201,95 +9207,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Main", function() { return _Main__WEBPACK_IMPORTED_MODULE_0__["Main"]; });
 
 
-
-
-/***/ }),
-
-/***/ "./src/components/_FormNewAnimal/FormNewAnimal.tsx":
-/*!*********************************************************!*\
-  !*** ./src/components/_FormNewAnimal/FormNewAnimal.tsx ***!
-  \*********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../redux/actions */ "./src/redux/actions/index.ts");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _translations_Translations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../translations/Translations */ "./src/translations/Translations.ts");
-/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../models */ "./src/models/index.ts");
-
-
-
-
-
-
-function mapStateToProps(state) {
-    return {
-        AddItem_LS: state.projectsReducer.animal,
-        openFromAddNewAnimal_LS: state.projectsReducer.openFromAddNewAnimal,
-    };
-}
-//Map the actions to the properties of the Component.
-const mapDispatchToProps = (dispatch) => ({
-    AddItem_LS: (animal) => {
-        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["addNewAnimal"])(animal));
-    },
-    openFromAddNewAnimal_LS: (open) => {
-        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["setOpenFormAddNewAnimal"])(open));
-    }
-});
-class FormNewAnimal extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            animal: new _models__WEBPACK_IMPORTED_MODULE_5__["AnimalModel"](),
-            openFromAddNewAnimal: false
-        };
-    }
-    ;
-    OnChangeField(fieldName, target) {
-        let auxModel = this.state.animal;
-        auxModel[fieldName].value = target.value;
-        this.setState({
-            animal: auxModel
-        });
-    }
-    AddNewAnimal(animal) {
-        this.props.AddItem_LS(animal);
-        this.props.openFromAddNewAnimal_LS(false);
-        this.setState({ animal: new _models__WEBPACK_IMPORTED_MODULE_5__["AnimalModel"]() });
-    }
-    render() {
-        return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null,
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Animal name"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Name", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_NAME), value: this.state.animal.Name.value }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Link photo animal"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("UrlPhoto", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_URLPHOTO), value: this.state.animal.UrlPhoto.value }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Kingdom"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Kingdom", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_KINGDOM), value: this.state.animal.Kingdom.value }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Class"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Class", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_CLASS), value: this.state.animal.Class.value }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Conservation status"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("ConservationStatus", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_CONSERVATION_STATUS), value: this.state.animal.ConservationStatus.value }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Region"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: "text", onChange: () => this.OnChangeField("Region", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_REGION), value: this.state.animal.Region.value }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Short info"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { onChange: () => this.OnChangeField("ShortInfo", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_SHORT_INFO), value: this.state.animal.ShortInfo.value }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Long info"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { onChange: () => this.OnChangeField("LongInfo", event.target), placeholder: this.context.t(_translations_Translations__WEBPACK_IMPORTED_MODULE_4__["translationsEnum"].PLACEHOLDER_LONG_INFO), value: this.state.animal.LongInfo.value }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { onClick: () => this.AddNewAnimal(this.state.animal) }, "Add animal")));
-    }
-}
-//Add ContextTypes
-FormNewAnimal.contextTypes = {
-    t: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func.isRequired
-};
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(FormNewAnimal));
 
 
 /***/ }),

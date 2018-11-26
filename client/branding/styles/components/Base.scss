@@ -1,0 +1,45 @@
+html {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.shadow_board {
+    -moz-box-shadow:    0px 3px 5px 3px #ccc;
+    -webkit-box-shadow: 0px 3px 5px 3px #ccc;
+    box-shadow:         0px 3px 5px 3px #ccc;
+  }
+
+.shadow_btn {
+    -moz-box-shadow:    0px 3px 5px 3px #ccc;
+    -webkit-box-shadow: 0px 3px 5px 3px #ccc;
+    box-shadow:         0px 3px 5px 3px #ccc;
+  }
+
+.shadow_card {
+    transition: 0.5s;
+    -moz-box-shadow:    0px 3px 5px 3px #ccc;
+    -webkit-box-shadow: 0px 3px 5px 3px #ccc;
+    box-shadow:         0px 3px 5px 3px #ccc;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        background-color: darken(#ccc, 15%);
+        box-shadow: 0 8px 15px 0 rgba(0,0,0,0.3);
+    }
+
+  }
+

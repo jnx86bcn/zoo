@@ -1,17 +1,44 @@
 .Board {
-    box-sizing: border-box;
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: column-reverse;
+    background-color: #E6F9D4;
+    width: 1660px;
+    max-width: 1660px;
+    margin-top: 20px;
+    padding: 40px;
 
-    &_btn_AddAnimal {
-        background-color: red;
+    &_btn {
+        background-image: ("cross.png");
+        margin-left: auto;
+        order: 2;
+        width: 100px;
+        height: 100px;
+        background-color: #61F1DD;
+        margin-top: 10px;
+        margin-bottom: 40px; 
+        border-radius: 50%;
+        transition: 0.2s;
+
+        &:active {
+            transform: scale(0.90);
+            box-shadow: 0 2px 15px 0 rgba(0,0,0,0.3);
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: darken(#61F1DD, 4%);
+            box-shadow: 0 8px 15px 0 rgba(0,0,0,0.3);
+        }
     }
 
-    &_Mosaic {
+    &_grid {
+        padding-left: 40px;
         display: flex;
-        background-color: blue;
-        width: 100%;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: auto;
+        width: 90%;
     }
 
 }
