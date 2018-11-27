@@ -28,10 +28,14 @@ export class Card extends React.Component<ICardProps, ICardState> {
         return (
                 <div className="Card shadow_card">
                    <div className = "Card_header">
-                        <label> {this.props.animal.Name.value} </label>
-                        <picture>
-                            <img src="" alt=""/>
-                        </picture>
+                        <div className = "Card_header_col1">
+                            <label> {this.props.animal.Name.value} </label>
+                        </div>
+                        <div className = "Card_header_col2">
+                            <picture>
+                                <img src="files/img/star.svg" alt=""/>
+                            </picture>
+                        </div>
                     </div>
                     <div style = {style} className = "Card_picture"/>
                     <div className = "Card_footer">
@@ -40,7 +44,7 @@ export class Card extends React.Component<ICardProps, ICardState> {
                         </div>
                         <div className = "Card_footer_col2">
                             <picture>
-                                <img src="" alt=""/>
+                                <img src="files/img/heart.svg" alt=""/>
                             </picture>
                             <label>{this.props.animal.Likes.value}</label>
                         </div>

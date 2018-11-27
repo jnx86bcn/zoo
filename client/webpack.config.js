@@ -161,7 +161,11 @@ module.exports = ({
             {
                 from: configHelper.resolvePath('branding/fonts'),
                 to: configHelper.resolvePath(targetPath + '/fonts')
-            }
+            },
+            {
+                from: configHelper.resolvePath('branding/img'),
+                to: configHelper.resolvePath(targetPath + '/img')
+            },
         ]),
 
         /**
