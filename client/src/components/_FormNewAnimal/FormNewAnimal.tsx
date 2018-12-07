@@ -13,18 +13,18 @@ import { AnimalModel } from '../../models';
 
 interface IConnectedDispatch {
     AddItem_LS: (animal: AnimalModel) => void;
-    openFromAddNewAnimal_LS:(open: boolean) => void;
+    SetOpenFormAddNewAnimal_LS:(open: boolean) => void;
 }
 
 interface IConnectedState {
     AddItem_LS: AnimalModel;
-    openFromAddNewAnimal_LS: boolean;
+    OpenFromAddNewAnimal_LS: boolean;
 }
 
 function mapStateToProps(state: any): IConnectedState {
 	return {
         AddItem_LS: state.projectsReducer.animal,
-        openFromAddNewAnimal_LS: state.projectsReducer.openFromAddNewAnimal,
+        OpenFromAddNewAnimal_LS: state.projectsReducer.openFormAddNewAnimal,
 	};
 }
 
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch: any): IConnectedDispatch => ({
     AddItem_LS: (animal: AnimalModel) => {
 		dispatch(addNewAnimal(animal));
     },
-    openFromAddNewAnimal_LS: (open: boolean) => {
+    SetOpenFormAddNewAnimal_LS: (open: boolean) => {
 		dispatch(setOpenFormAddNewAnimal(open));
 	}
 });
@@ -45,15 +45,34 @@ class FormNewAnimal extends React.Component<INewFormAnimalProps & IConnectedStat
 		t: PropTypes.func.isRequired
 	}
 
+
     constructor(props) {
         super(props);
         this.state = {
             animal: new AnimalModel(),
-            openFromAddNewAnimal: false
+            formIsOpen: false
         }
     };
 
-    
+
+    public static getDerivedStateFromProps(nextProps: INewFormAnimalProps & IConnectedState, prevState: INewFormAnimalState) {
+
+        if (nextProps.OpenFromAddNewAnimal_LS != prevState.formIsOpen) {
+            return { formIsOpen: nextProps.OpenFromAddNewAnimal_LS }
+        }
+    }
+
+
+    public componentDidUpdate(prevProps: INewFormAnimalProps & IConnectedState, prevState: INewFormAnimalState) {
+         
+        if (prevProps.OpenFromAddNewAnimal_LS != prevState.formIsOpen) {
+            this.setState({formIsOpen: prevProps.OpenFromAddNewAnimal_LS})
+            console.log(this.state.formIsOpen)
+        }
+
+    }
+
+
     private OnChangeField(fieldName:string,target: any) {
         let auxModel =this.state.animal;
         auxModel[fieldName].value = target.value;
@@ -62,42 +81,52 @@ class FormNewAnimal extends React.Component<INewFormAnimalProps & IConnectedStat
         })
     }
 
+
     private AddNewAnimal(animal: AnimalModel) {
         this.props.AddItem_LS(animal);
-        this.props.openFromAddNewAnimal_LS(false);
+        this.props.SetOpenFormAddNewAnimal_LS(false);
         this.setState({animal: new AnimalModel()});
     }
+
 
     public render() {
 
         return (
-                <div>
-                    <label >Animal name</label>
-                    <input type="text" onChange={()=>this.OnChangeField("Name",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_NAME)} value = {this.state.animal.Name.value}/>
-
-                    <label >Link photo animal</label>
-                    <input type="text" onChange={()=>this.OnChangeField("UrlPhoto",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_URLPHOTO)} value = {this.state.animal.UrlPhoto.value}/>
-
-                    <label >Kingdom</label>
-                    <input type="text" onChange={()=>this.OnChangeField("Kingdom",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_KINGDOM)} value = {this.state.animal.Kingdom.value}/>
-
-                    <label >Class</label>
-                    <input type="text" onChange={()=>this.OnChangeField("Class",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_CLASS)} value = {this.state.animal.Class.value}/>
-
-                    <label >Conservation status</label>
-                    <input type="text" onChange={()=>this.OnChangeField("ConservationStatus",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_CONSERVATION_STATUS)} value = {this.state.animal.ConservationStatus.value}/>
-
-                    <label >Region</label>
-                    <input type="text" onChange={()=>this.OnChangeField("Region",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_REGION)} value = {this.state.animal.Region.value}/>
-
-                    <label >Short info</label>
-                    <textarea onChange={()=>this.OnChangeField("ShortInfo",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_SHORT_INFO)} value = {this.state.animal.ShortInfo.value}/>
-
-                    <label >Long info</label>
-                    <textarea onChange={()=>this.OnChangeField("LongInfo",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_LONG_INFO)} value = {this.state.animal.LongInfo.value}/>
-
+                <dialog className = "dialogContainer" open={this.state.formIsOpen} >
+                    <div className = "row">
+                        <label >Animal name</label>
+                        <input type="text" onChange={()=>this.OnChangeField("Name",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_NAME)} value = {this.state.animal.Name.value}/>
+                    </div>
+                    <div className = "row">
+                        <label >Link photo animal</label>
+                        <input type="text" onChange={()=>this.OnChangeField("UrlPhoto",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_URLPHOTO)} value = {this.state.animal.UrlPhoto.value}/>
+                    </div>
+                    <div className = "row">
+                        <label >Kingdom</label>
+                        <input type="text" onChange={()=>this.OnChangeField("Kingdom",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_KINGDOM)} value = {this.state.animal.Kingdom.value}/>
+                    </div>
+                    <div className = "row">
+                        <label >Class</label>
+                        <input type="text" onChange={()=>this.OnChangeField("Class",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_CLASS)} value = {this.state.animal.Class.value}/>
+                    </div>
+                    <div className = "row">
+                        <label >Conservation status</label>
+                        <input type="text" onChange={()=>this.OnChangeField("ConservationStatus",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_CONSERVATION_STATUS)} value = {this.state.animal.ConservationStatus.value}/>
+                    </div>
+                    <div className = "row">
+                        <label >Region</label>
+                        <input type="text" onChange={()=>this.OnChangeField("Region",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_REGION)} value = {this.state.animal.Region.value}/>
+                    </div>
+                    <div className = "row">
+                        <label >Short info</label>
+                        <textarea onChange={()=>this.OnChangeField("ShortInfo",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_SHORT_INFO)} value = {this.state.animal.ShortInfo.value}/>
+                    </div>
+                    <div className = "row">
+                        <label >Long info</label>
+                        <textarea onChange={()=>this.OnChangeField("LongInfo",event.target)} placeholder={this.context.t(translationsEnum.PLACEHOLDER_LONG_INFO)} value = {this.state.animal.LongInfo.value}/>
+                    </div>
                     <button onClick={()=>this.AddNewAnimal(this.state.animal)} >Add animal</button>
-                </div>
+                </dialog>
         )
     }
 

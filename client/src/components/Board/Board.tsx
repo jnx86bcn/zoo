@@ -17,18 +17,18 @@ import '../../../branding/styles/main';
 
 interface IConnectedDispatch {
     GetAllAnimals_LS: () => void;
-    OpenFromAddNewAnimal_LS:(open: boolean) => void;
+    SetOpenFormAddNewAnimal_LS:(open: boolean) => void;
 }
 
 interface IConnectedState {
     allAnimals_LS: Array<AnimalModel>;
-    openFromAddNewAnimal_LS: boolean;
+    OpenFromAddNewAnimal_LS: boolean;
 }
 
 function mapStateToProps(state: any): IConnectedState {
 	return {
         allAnimals_LS: state.projectsReducer.animals,
-        openFromAddNewAnimal_LS: state.projectsReducer.openFormAddNewAnimal,
+        OpenFromAddNewAnimal_LS: state.projectsReducer.openFormAddNewAnimal,
 	}
 }
 
@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch: any): IConnectedDispatch => ({
 	GetAllAnimals_LS: () => {
 		dispatch(getAllAnimals());
     },
-    OpenFromAddNewAnimal_LS: (openFormAddNewAnimal: boolean) => {
+    SetOpenFormAddNewAnimal_LS: (openFormAddNewAnimal: boolean) => {
 		dispatch(setOpenFormAddNewAnimal(openFormAddNewAnimal));
 	}
 });
@@ -55,21 +55,20 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
         super(props);
 
         this.state = {
-            allAnimals: [],
-            openForm: false
+            allAnimals: []
         }
 
-    };    
+    }
 
+
+    private openFormNewAnimal() {
+        this.props.SetOpenFormAddNewAnimal_LS(true);
+    }
 
     public static getDerivedStateFromProps(nextProps: IBoardProps & IConnectedState, prevState: IBoardState) {
  
         if (nextProps.allAnimals_LS != prevState.allAnimals) {
             return { allAnimals: nextProps.allAnimals_LS }
-        }
-
-        if(nextProps.openFromAddNewAnimal_LS != prevState.openForm) {
-            return { openForm: nextProps.openFromAddNewAnimal_LS }
         }
 
     }
@@ -79,10 +78,6 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
          
         if (prevProps.allAnimals_LS != prevState.allAnimals) {
             this.setState({allAnimals: prevProps.allAnimals_LS})
-        }
-
-        if (prevProps.openFromAddNewAnimal_LS != prevState.openForm) {
-            this.setState({openForm: prevProps.openFromAddNewAnimal_LS})
         }
 
     }
@@ -105,10 +100,11 @@ class Board extends React.Component<IBoardProps & IConnectedState & IConnectedDi
 
         return (
                 <div className = "Board shadow_board">
-                    <div className="Board_btn shadow_btn" />
+                    <div className="Board_btn shadow_btn" onClick = {()=>this.openFormNewAnimal()}/>
                     <div className="Board_grid">
                         {arrayAnimals}
                     </div>
+                    <FormNewAnimal/>
                 </div>
         )
     }
